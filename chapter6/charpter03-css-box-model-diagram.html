@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>แผนภาพอธิบาย CSS Box Model</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 10px;
+      font-size: 2.5em;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #7f8c8d;
+      margin-bottom: 40px;
+      font-size: 1.1em;
+    }
+
+    .section {
+      margin-bottom: 50px;
+    }
+
+    .section-title {
+      font-size: 1.8em;
+      color: #2c3e50;
+      margin: 40px 0 20px 0;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #3498db;
+    }
+
+    /* Diagram 1: Basic Box Model */
+    .box-model-container {
+      display: flex;
+      justify-content: center;
+      margin: 40px 0;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    .box-model {
+      position: relative;
+      width: 450px;
+      height: 450px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .margin-box {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #e74c3c;
+      border: 3px dashed #c0392b;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .border-box {
+      position: absolute;
+      width: 75%;
+      height: 75%;
+      background: #f39c12;
+      border: 8px solid #d68910;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .padding-box {
+      position: absolute;
+      width: 60%;
+      height: 60%;
+      background: #3498db;
+      border: 3px dashed #2980b9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .content-box {
+      position: absolute;
+      width: 45%;
+      height: 45%;
+      background: #2ecc71;
+      border: 3px solid #27ae60;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+
+    .label {
+      position: absolute;
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 5px 12px;
+      border-radius: 5px;
+      font-size: 0.9em;
+      font-weight: bold;
+      z-index: 10;
+    }
+
+    .margin-label {
+      top: 10px;
+      left: 10px;
+    }
+
+    .border-label {
+      top: 70px;
+      left: 70px;
+    }
+
+    .padding-label {
+      top: 130px;
+      left: 130px;
+    }
+
+    .content-label {
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    /* Diagram 2: Detailed with Measurements */
+    .measurement-diagram {
+      background: #ecf0f1;
+      padding: 40px;
+      border-radius: 15px;
+      margin: 30px 0;
+      text-align: center;
+    }
+
+    .measured-box {
+      display: inline-block;
+      position: relative;
+      margin: 50px;
+    }
+
+    .layer {
+      border: 2px dashed #34495e;
+      padding: 20px;
+      position: relative;
+    }
+
+    .layer-margin {
+      background: rgba(231, 76, 60, 0.2);
+      border-color: #e74c3c;
+    }
+
+    .layer-border {
+      background: rgba(243, 156, 18, 0.3);
+      border: 5px solid #f39c12;
+    }
+
+    .layer-padding {
+      background: rgba(52, 152, 219, 0.2);
+      border-color: #3498db;
+    }
+
+    .layer-content {
+      background: #2ecc71;
+      color: white;
+      border: none;
+      padding: 40px 60px;
+      font-weight: bold;
+      font-size: 1.2em;
+    }
+
+    .measurement {
+      position: absolute;
+      font-size: 0.85em;
+      font-weight: bold;
+      color: #2c3e50;
+      background: white;
+      padding: 2px 6px;
+      border-radius: 3px;
+      border: 1px solid #34495e;
+    }
+
+    /* Interactive Demo */
+    .interactive-demo {
+      background: #f8f9fa;
+      padding: 30px;
+      border-radius: 15px;
+      margin: 30px 0;
+    }
+
+    .demo-box {
+      width: 300px;
+      height: 150px;
+      background: #3498db;
+      margin: 30px auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+      transition: all 0.3s ease;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .control-group {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    .control-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #2c3e50;
+    }
+
+    .control-group input[type="range"] {
+      width: 100%;
+      margin-bottom: 5px;
+    }
+
+    .value-display {
+      text-align: center;
+      color: #7f8c8d;
+      font-size: 0.9em;
+    }
+
+    /* Code Examples */
+    .code-example {
+      background: #2c3e50;
+      color: #ecf0f1;
+      padding: 20px;
+      border-radius: 10px;
+      font-family: 'Courier New', monospace;
+      overflow-x: auto;
+      margin: 20px 0;
+      line-height: 1.8;
+    }
+
+    .code-example .comment {
+      color: #95a5a6;
+    }
+
+    .code-example .property {
+      color: #3498db;
+    }
+
+    .code-example .value {
+      color: #e74c3c;
+    }
+
+    /* Comparison Table */
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .comparison-table th {
+      background: #34495e;
+      color: white;
+      padding: 15px;
+      text-align: left;
+    }
+
+    .comparison-table td {
+      padding: 12px 15px;
+      border-bottom: 1px solid #ecf0f1;
+    }
+
+    .comparison-table tr:nth-child(even) {
+      background: #f8f9fa;
+    }
+
+    .comparison-table tr:hover {
+      background: #e8f4f8;
+    }
+
+    /* Visual Examples */
+    .visual-examples {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin: 30px 0;
+    }
+
+    .example-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+    .example-title {
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 15px;
+      font-size: 1.1em;
+    }
+
+    .example-box-1 {
+      background: #3498db;
+      color: white;
+      padding: 20px;
+      margin: 20px;
+      border: 5px solid #2980b9;
+    }
+
+    .example-box-2 {
+      background: #e74c3c;
+      color: white;
+      padding: 30px;
+      margin: 10px;
+      border: 3px dashed #c0392b;
+      border-radius: 15px;
+    }
+
+    .example-box-3 {
+      background: #2ecc71;
+      color: white;
+      padding: 15px 25px;
+      margin: 25px 15px;
+      border: 2px solid #27ae60;
+    }
+
+    /* Info Box */
+    .info-box {
+      background: #e8f4f8;
+      border-left: 5px solid #3498db;
+      padding: 20px;
+      margin: 20px 0;
+      border-radius: 5px;
+    }
+
+    .info-box.warning {
+      background: #fff3cd;
+      border-left-color: #ffc107;
+    }
+
+    .info-box.success {
+      background: #d4edda;
+      border-left-color: #28a745;
+    }
+
+    .info-box h3 {
+      margin-top: 0;
+      color: #2c3e50;
+    }
+
+    /* Box Sizing Demo */
+    .box-sizing-demo {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin: 30px 0;
+    }
+
+    .sizing-example {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .sizing-example h4 {
+      text-align: center;
+      margin-bottom: 15px;
+      color: #2c3e50;
+    }
+
+    .box-content-box {
+      width: 200px;
+      height: 100px;
+      background: #3498db;
+      color: white;
+      padding: 20px;
+      border: 5px solid #2980b9;
+      margin: 20px auto;
+      box-sizing: content-box;
+    }
+
+    .box-border-box {
+      width: 200px;
+      height: 100px;
+      background: #e74c3c;
+      color: white;
+      padding: 20px;
+      border: 5px solid #c0392b;
+      margin: 20px auto;
+      box-sizing: border-box;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 1.8em;
+      }
+
+      .box-model {
+        width: 100%;
+        height: 350px;
+      }
+
+      .box-sizing-demo {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📦 แผนภาพอธิบาย CSS Box Model</h1>
+    <p class="subtitle">เรียนรู้แนวคิดพื้นฐานที่สำคัญที่สุดใน CSS!</p>
+
+    <!-- Section 1: Basic Concept -->
+    <section class="section">
+      <h2 class="section-title">1️⃣ Box Model คืออะไร?</h2>
+      
+      <div class="info-box">
+        <h3>💡 แนวคิดพื้นฐาน</h3>
+        <p>ทุก Element ใน HTML ถูกมองเป็น <strong>"กล่อง" (Box)</strong> ที่มี 4 ส่วนหลัก:</p>
+        <ul style="margin-left: 20px; margin-top: 10px;">
+          <li><strong>Content</strong> - เนื้อหาจริง (ข้อความ, รูปภาพ)</li>
+          <li><strong>Padding</strong> - ระยะห่างระหว่างเนื้อหากับขอบ (ภายใน)</li>
+          <li><strong>Border</strong> - ขอบของกล่อง</li>
+          <li><strong>Margin</strong> - ระยะห่างระหว่างกล่องกับ Element อื่น (ภายนอก)</li>
+        </ul>
+      </div>
+
+      <div class="box-model-container">
+        <div class="box-model">
+          <div class="margin-box">
+            <div class="label margin-label">Margin</div>
+          </div>
+          <div class="border-box">
+            <div class="label border-label">Border</div>
+          </div>
+          <div class="padding-box">
+            <div class="label padding-label">Padding</div>
+          </div>
+          <div class="content-box">
+            Content<br>(เนื้อหา)
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 2: Detailed Diagram -->
+    <section class="section">
+      <h2 class="section-title">2️⃣ โครงสร้างแบบละเอียด</h2>
+      
+      <div class="measurement-diagram">
+        <div class="measured-box">
+          <div class="layer layer-margin">
+            <div style="position: absolute; top: -30px; left: 50%; transform: translateX(-50%); background: #e74c3c; color: white; padding: 5px 10px; border-radius: 5px; font-weight: bold;">Margin (ระยะห่างนอก)</div>
+            
+            <div class="layer layer-border">
+              <div style="position: absolute; top: 50%; left: -80px; transform: translateY(-50%); background: #f39c12; color: white; padding: 5px 10px; border-radius: 5px; font-weight: bold;">Border</div>
+              
+              <div class="layer layer-padding">
+                <div style="position: absolute; bottom: -30px; left: 50%; transform: translateX(-50%); background: #3498db; color: white; padding: 5px 10px; border-radius: 5px; font-weight: bold;">Padding (ระยะห่างใน)</div>
+                
+                <div class="layer-content">
+                  Content
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 3: Property Explanation -->
+    <section class="section">
+      <h2 class="section-title">3️⃣ คำอธิบายแต่ละส่วน</h2>
+
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>ส่วนประกอบ</th>
+            <th>ความหมาย</th>
+            <th>Properties</th>
+            <th>ตัวอย่าง</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong style="color: #2ecc71;">Content</strong></td>
+            <td>พื้นที่เนื้อหาจริง</td>
+            <td><code>width, height</code></td>
+            <td><code>width: 300px;</code></td>
+          </tr>
+          <tr>
+            <td><strong style="color: #3498db;">Padding</strong></td>
+            <td>ระยะห่างภายใน (เนื้อหา ↔ ขอบ)</td>
+            <td><code>padding, padding-top, padding-right, padding-bottom, padding-left</code></td>
+            <td><code>padding: 20px;</code></td>
+          </tr>
+          <tr>
+            <td><strong style="color: #f39c12;">Border</strong></td>
+            <td>ขอบของกล่อง</td>
+            <td><code>border, border-width, border-style, border-color</code></td>
+            <td><code>border: 2px solid black;</code></td>
+          </tr>
+          <tr>
+            <td><strong style="color: #e74c3c;">Margin</strong></td>
+            <td>ระยะห่างภายนอก (กล่อง ↔ Element อื่น)</td>
+            <td><code>margin, margin-top, margin-right, margin-bottom, margin-left</code></td>
+            <td><code>margin: 30px;</code></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Section 4: Code Examples -->
+    <section class="section">
+      <h2 class="section-title">4️⃣ ตัวอย่างโค้ด</h2>
+
+      <div class="code-example">
+<span class="comment">/* ตัวอย่างการใช้ Box Model */</span>
+.box {
+  <span class="comment">/* Content */</span>
+  <span class="property">width</span>: <span class="value">300px</span>;
+  <span class="property">height</span>: <span class="value">200px</span>;
+  <span class="property">background-color</span>: <span class="value">lightblue</span>;
+  
+  <span class="comment">/* Padding - ระยะห่างใน */</span>
+  <span class="property">padding</span>: <span class="value">20px</span>;                    <span class="comment">/* ทุกด้าน 20px */</span>
+  <span class="comment">/* หรือ */</span>
+  <span class="property">padding</span>: <span class="value">10px 20px</span>;              <span class="comment">/* บน-ล่าง 10px, ซ้าย-ขวา 20px */</span>
+  <span class="comment">/* หรือ */</span>
+  <span class="property">padding</span>: <span class="value">10px 20px 15px 25px</span>;    <span class="comment">/* บน ขวา ล่าง ซ้าย (ตามเข็มนาฬิกา) */</span>
+  
+  <span class="comment">/* Border - ขอบ */</span>
+  <span class="property">border</span>: <span class="value">3px solid navy</span>;         <span class="comment">/* ความหนา รูปแบบ สี */</span>
+  <span class="property">border-radius</span>: <span class="value">10px</span>;            <span class="comment">/* มุมโค้ง */</span>
+  
+  <span class="comment">/* Margin - ระยะห่างนอก */</span>
+  <span class="property">margin</span>: <span class="value">30px</span>;                     <span class="comment">/* ทุกด้าน 30px */</span>
+  <span class="comment">/* หรือ */</span>
+  <span class="property">margin</span>: <span class="value">20px auto</span>;               <span class="comment">/* จัดกึ่งกลางในแนวนอน */</span>
+}
+      </div>
+
+      <div class="info-box success">
+        <h3>🎯 เทคนิคการจำ: ลำดับตามเข็มนาฬิกา</h3>
+        <p>เมื่อใส่ค่า 4 ตัว จะเป็นลำดับ: <strong>บน → ขวา → ล่าง → ซ้าย</strong></p>
+        <div class="code-example" style="margin-top: 10px;">
+<span class="property">padding</span>: <span class="value">10px</span> <span class="value">20px</span> <span class="value">30px</span> <span class="value">40px</span>;
+         <span class="comment">/* ↑    ↑    ↑    ↑        */</span>
+         <span class="comment">/* บน  ขวา  ล่าง ซ้าย      */</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 5: Interactive Demo -->
+    <section class="section">
+      <h2 class="section-title">5️⃣ ทดลองปรับค่า Box Model</h2>
+      
+      <div class="interactive-demo">
+        <div class="demo-box" id="demoBox">
+          Content
+        </div>
+
+        <div class="controls">
+          <div class="control-group">
+            <label>📏 Width (ความกว้าง)</label>
+            <input type="range" id="widthSlider" min="200" max="500" value="300">
+            <div class="value-display" id="widthValue">300px</div>
+          </div>
+
+          <div class="control-group">
+            <label>📐 Height (ความสูง)</label>
+            <input type="range" id="heightSlider" min="100" max="300" value="150">
+            <div class="value-display" id="heightValue">150px</div>
+          </div>
+
+          <div class="control-group">
+            <label>🔵 Padding (ระยะห่างใน)</label>
+            <input type="range" id="paddingSlider" min="0" max="50" value="20">
+            <div class="value-display" id="paddingValue">20px</div>
+          </div>
+
+          <div class="control-group">
+            <label>🟧 Border (ขอบ)</label>
+            <input type="range" id="borderSlider" min="0" max="20" value="5">
+            <div class="value-display" id="borderValue">5px</div>
+          </div>
+
+          <div class="control-group">
+            <label>🔴 Margin (ระยะห่างนอก)</label>
+            <input type="range" id="marginSlider" min="0" max="100" value="30">
+            <div class="value-display" id="marginValue">30px</div>
+          </div>
+        </div>
+
+        <div class="info-box" style="margin-top: 20px;">
+          <p><strong>💡 คำแนะนำ:</strong> ลองเลื่อน Slider แต่ละตัวเพื่อดูการเปลี่ยนแปลง และเปิด Developer Tools (F12) เพื่อดู Box Model แบบละเอียด!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 6: Visual Examples -->
+    <section class="section">
+      <h2 class="section-title">6️⃣ ตัวอย่างการใช้งานจริง</h2>
+
+      <div class="visual-examples">
+        <div class="example-card">
+          <div class="example-title">ตัวอย่าง 1: ปุ่ม (Button)</div>
+          <div class="example-box-1">
+            คลิกที่นี่
+          </div>
+          <div class="code-example">
+<span class="property">padding</span>: <span class="value">20px</span>;
+<span class="property">margin</span>: <span class="value">20px</span>;
+<span class="property">border</span>: <span class="value">5px solid #2980b9</span>;
+          </div>
+        </div>
+
+        <div class="example-card">
+          <div class="example-title">ตัวอย่าง 2: การ์ด (Card)</div>
+          <div class="example-box-2">
+            เนื้อหาในการ์ด
+          </div>
+          <div class="code-example">
+<span class="property">padding</span>: <span class="value">30px</span>;
+<span class="property">margin</span>: <span class="value">10px</span>;
+<span class="property">border</span>: <span class="value">3px dashed #c0392b</span>;
+<span class="property">border-radius</span>: <span class="value">15px</span>;
+          </div>
+        </div>
+
+        <div class="example-card">
+          <div class="example-title">ตัวอย่าง 3: แบนเนอร์ (Banner)</div>
+          <div class="example-box-3">
+            ข้อความประกาศ
+          </div>
+          <div class="code-example">
+<span class="property">padding</span>: <span class="value">15px 25px</span>;
+<span class="property">margin</span>: <span class="value">25px 15px</span>;
+<span class="property">border</span>: <span class="value">2px solid #27ae60</span>;
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 7: Box-Sizing -->
+    <section class="section">
+      <h2 class="section-title">7️⃣ Box-Sizing: content-box vs border-box</h2>
+
+      <div class="info-box warning">
+        <h3>⚠️ ปัญหาที่พบบ่อย</h3>
+        <p>เมื่อกำหนด <code>width: 200px</code> แต่ใส่ <code>padding: 20px</code> และ <code>border: 5px</code><br>
+        ความกว้างจริงจะเป็น: <strong>200 + (20×2) + (5×2) = 250px</strong> (ไม่ใช่ 200px!)</p>
+      </div>
+
+      <div class="box-sizing-demo">
+        <div class="sizing-example">
+          <h4>❌ box-sizing: content-box (Default)</h4>
+          <div class="box-content-box">
+            200px
+          </div>
+          <div class="code-example">
+<span class="property">width</span>: <span class="value">200px</span>;
+<span class="property">padding</span>: <span class="value">20px</span>;
+<span class="property">border</span>: <span class="value">5px solid</span>;
+<span class="property">box-sizing</span>: <span class="value">content-box</span>;
+
+<span class="comment">/* ความกว้างรวม = 250px */</span>
+<span class="comment">/* (200 + 20×2 + 5×2) */</span>
+          </div>
+        </div>
+
+        <div class="sizing-example">
+          <h4>✅ box-sizing: border-box (แนะนำ!)</h4>
+          <div class="box-border-box">
+            200px
+          </div>
+          <div class="code-example">
+<span class="property">width</span>: <span class="value">200px</span>;
+<span class="property">padding</span>: <span class="value">20px</span>;
+<span class="property">border</span>: <span class="value">5px solid</span>;
+<span class="property">box-sizing</span>: <span class="value">border-box</span>;
+
+<span class="comment">/* ความกว้างรวม = 200px */</span>
+<span class="comment">/* (padding+border รวมอยู่ใน 200px) */</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="info-box success">
+        <h3>💡 Best Practice</h3>
+        <p>แนะนำให้ใส่ CSS นี้ในทุกโปรเจค:</p>
+        <div class="code-example">
+<span class="comment">/* ใช้ border-box สำหรับทุก Element */</span>
+* {
+  <span class="property">box-sizing</span>: <span class="value">border-box</span>;
+}
+        </div>
+        <p style="margin-top: 10px;"><strong>ทำไม?</strong> เพราะทำให้การคำนวณขนาดง่ายขึ้นมาก!</p>
+      </div>
+    </section>
+
+    <!-- Section 8: Common Mistakes -->
+    <section class="section">
+      <h2 class="section-title">8️⃣ ข้อผิดพลาดที่พบบ่อย</h2>
+
+      <div class="info-box warning">
+        <h3>❌ ข้อผิดพลาด #1: สับสน Padding กับ Margin</h3>
+        <ul style="margin-left: 20px; margin-top: 10px;">
+          <li><strong>Padding</strong> = ระยะห่างภายใน → เพิ่มพื้นที่ให้เนื้อหาหายใจ</li>
+          <li><strong>Margin</strong> = ระยะห่างภายนอก → เว้นระยะจาก Element อื่น</li>
+        </ul>
+        <p style="margin-top: 10px;"><strong>💡 วิธีจำ:</strong> Padding = PAD (แผ่นรอง), Margin = MARGIN (ขอบหน้ากระดาษ)</p>
+      </div>
+
+      <div class="info-box warning">
+        <h3>❌ ข้อผิดพลาด #2: ลืมคำนวณ Padding และ Border</h3>
+        <p>ถ้าไม่ใช้ <code>box-sizing: border-box</code> ต้องระวังว่า width จริง = width + padding + border</p>
+      </div>
+
+      <div class="info-box warning">
+        <h3>❌ ข้อผิดพลาด #3: ใช้ Margin ติดลบโดยไม่เข้าใจ</h3>
+        <p><code>margin: -10px</code> จะทำให้ Element ทับกัน ควรใช้เฉพาะเมื่อรู้ว่าทำอะไร</p>
+      </div>
+    </section>
+
+    <!-- Section 9: Shortcuts -->
+    <section class="section">
+      <h2 class="section-title">9️⃣ Shorthand Properties (เขียนแบบย่อ)</h2>
+
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>รูปแบบ</th>
+            <th>ความหมาย</th>
+            <th>ตัวอย่าง</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>padding: 20px;</code></td>
+            <td>ทุกด้าน 20px</td>
+            <td>บน ขวา ล่าง ซ้าย = 20px</td>
+          </tr>
+          <tr>
+            <td><code>padding: 10px 20px;</code></td>
+            <td>บน-ล่าง 10px, ซ้าย-ขวา 20px</td>
+            <td>บน/ล่าง = 10px, ซ้าย/ขวา = 20px</td>
+          </tr>
+          <tr>
+            <td><code>padding: 10px 20px 15px;</code></td>
+            <td>บน 10px, ซ้าย-ขวา 20px, ล่าง 15px</td>
+            <td>บน = 10px, ขวา/ซ้าย = 20px, ล่าง = 15px</td>
+          </tr>
+          <tr>
+            <td><code>padding: 10px 20px 15px 25px;</code></td>
+            <td>บน ขวา ล่าง ซ้าย (ตามเข็มนาฬิกา)</td>
+            <td>บน=10 ขวา=20 ล่าง=15 ซ้าย=25</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Summary -->
+    <div class="info-box" style="background: #fff3cd; border-left-color: #ffc107; margin-top: 40px;">
+      <h3>📋 สรุปสำคัญ</h3>
+      <ul style="margin-left: 20px; margin-top: 10px; line-height: 2;">
+        <li><strong>Content</strong> = เนื้อหาจริง (width, height)</li>
+        <li><strong>Padding</strong> = ระยะห่างภายใน (ใส่สีพื้นหลังจะครอบคลุมถึง padding)</li>
+        <li><strong>Border</strong> = ขอบของกล่อง (มองเห็นได้)</li>
+        <li><strong>Margin</strong> = ระยะห่างภายนอก (โปร่งใส ไม่มีสีพื้นหลัง)</li>
+        <li><strong>box-sizing: border-box</strong> = ทำให้ width รวม padding และ border (แนะนำ!)</li>
+      </ul>
+    </div>
+
+    <div style="text-align: center; margin-top: 40px; color: #7f8c8d;">
+      <p>📚 สร้างโดย: วิชาการพัฒนาโปรแกรมประยุกต์บนเว็บขั้นต้น</p>
+      <p>สัปดาห์ที่ 3: HTML5 Multimedia & CSS3 Introduction</p>
+      <p style="margin-top: 10px;"><strong>💡 Tips:</strong> กด F12 เพื่อเปิด Developer Tools และดู Box Model แบบละเอียดในแท็บ Elements/Inspector!</p>
+    </div>
+  </div>
+
+  <script>
+    // Interactive Demo
+    const demoBox = document.getElementById('demoBox');
+    const widthSlider = document.getElementById('widthSlider');
+    const heightSlider = document.getElementById('heightSlider');
+    const paddingSlider = document.getElementById('paddingSlider');
+    const borderSlider = document.getElementById('borderSlider');
+    const marginSlider = document.getElementById('marginSlider');
+
+    const widthValue = document.getElementById('widthValue');
+    const heightValue = document.getElementById('heightValue');
+    const paddingValue = document.getElementById('paddingValue');
+    const borderValue = document.getElementById('borderValue');
+    const marginValue = document.getElementById('marginValue');
+
+    function updateBox() {
+      demoBox.style.width = widthSlider.value + 'px';
+      demoBox.style.height = heightSlider.value + 'px';
+      demoBox.style.padding = paddingSlider.value + 'px';
+      demoBox.style.border = borderSlider.value + 'px solid #2980b9';
+      demoBox.style.margin = marginSlider.value + 'px auto';
+
+      widthValue.textContent = widthSlider.value + 'px';
+      heightValue.textContent = heightSlider.value + 'px';
+      paddingValue.textContent = paddingSlider.value + 'px';
+      borderValue.textContent = borderSlider.value + 'px';
+      marginValue.textContent = marginSlider.value + 'px';
+    }
+
+    widthSlider.addEventListener('input', updateBox);
+    heightSlider.addEventListener('input', updateBox);
+    paddingSlider.addEventListener('input', updateBox);
+    borderSlider.addEventListener('input', updateBox);
+    marginSlider.addEventListener('input', updateBox);
+
+    // Initialize
+    updateBox();
+  </script>
+</body>
+</html>

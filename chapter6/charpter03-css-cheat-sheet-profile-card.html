@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CSS Cheat Sheet - Profile Card Assignment</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 10px;
+      font-size: 2.5em;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #7f8c8d;
+      margin-bottom: 40px;
+      font-size: 1.1em;
+    }
+
+    .section-title {
+      font-size: 1.8em;
+      color: #2c3e50;
+      margin: 40px 0 20px 0;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #3498db;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Grid Layout */
+    .cheat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 25px;
+      margin: 30px 0;
+    }
+
+    /* Cheat Card */
+    .cheat-card {
+      background: #f8f9fa;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .cheat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    }
+
+    .cheat-card-title {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #3498db;
+    }
+
+    .property-item {
+      margin-bottom: 15px;
+      background: white;
+      padding: 12px;
+      border-radius: 8px;
+      border-left: 4px solid #3498db;
+    }
+
+    .property-name {
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      color: #e74c3c;
+      font-size: 0.95em;
+    }
+
+    .property-desc {
+      color: #7f8c8d;
+      font-size: 0.9em;
+      margin: 5px 0;
+    }
+
+    .property-example {
+      background: #2c3e50;
+      color: #ecf0f1;
+      padding: 8px 12px;
+      border-radius: 5px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.85em;
+      margin-top: 8px;
+      overflow-x: auto;
+    }
+
+    .property-example .value {
+      color: #3498db;
+    }
+
+    .property-example .comment {
+      color: #95a5a6;
+    }
+
+    /* Visual Example */
+    .visual-demo {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      margin: 15px 0;
+      border: 2px dashed #95a5a6;
+    }
+
+    /* Info Box */
+    .info-box {
+      background: #e8f4f8;
+      border-left: 5px solid #3498db;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 5px;
+    }
+
+    .info-box.warning {
+      background: #fff3cd;
+      border-left-color: #ffc107;
+    }
+
+    .info-box.success {
+      background: #d4edda;
+      border-left-color: #28a745;
+    }
+
+    .info-box.tip {
+      background: #e7e3fc;
+      border-left-color: #764ba2;
+    }
+
+    /* Complete Example Section */
+    .complete-example {
+      background: #2c3e50;
+      color: #ecf0f1;
+      padding: 25px;
+      border-radius: 12px;
+      margin: 30px 0;
+      font-family: 'Courier New', monospace;
+      overflow-x: auto;
+      line-height: 1.8;
+    }
+
+    .complete-example .tag {
+      color: #e74c3c;
+    }
+
+    .complete-example .attr {
+      color: #3498db;
+    }
+
+    .complete-example .value-str {
+      color: #2ecc71;
+    }
+
+    .complete-example .comment {
+      color: #95a5a6;
+    }
+
+    /* Color Palette */
+    .color-palette {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px;
+      margin: 20px 0;
+    }
+
+    .color-box {
+      text-align: center;
+      padding: 15px;
+      border-radius: 8px;
+      color: white;
+      font-weight: bold;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+
+    .color-code {
+      font-family: 'Courier New', monospace;
+      font-size: 0.85em;
+      margin-top: 5px;
+      opacity: 0.9;
+    }
+
+    /* Quick Reference Table */
+    .quick-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    .quick-table th {
+      background: #34495e;
+      color: white;
+      padding: 12px;
+      text-align: left;
+    }
+
+    .quick-table td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #ecf0f1;
+    }
+
+    .quick-table tr:nth-child(even) {
+      background: #f8f9fa;
+    }
+
+    .quick-table code {
+      background: #e8f4f8;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Courier New', monospace;
+      color: #e74c3c;
+    }
+
+    /* Profile Card Preview */
+    .preview-section {
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      padding: 40px;
+      border-radius: 15px;
+      margin: 30px 0;
+    }
+
+    .profile-card-demo {
+      max-width: 400px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+      padding: 30px;
+      text-align: center;
+    }
+
+    .profile-img-demo {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 3em;
+      border: 5px solid #f8f9fa;
+    }
+
+    .profile-name-demo {
+      font-size: 1.8em;
+      color: #2c3e50;
+      margin-bottom: 5px;
+    }
+
+    .profile-title-demo {
+      color: #7f8c8d;
+      margin-bottom: 15px;
+    }
+
+    .profile-bio-demo {
+      color: #34495e;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .social-demo {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+
+    .btn-demo {
+      background: #3498db;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .btn-demo:hover {
+      background: #2980b9;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 1.8em;
+      }
+
+      .cheat-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📋 CSS Cheat Sheet</h1>
+    <p class="subtitle">สำหรับแบบฝึกหัด Profile Card - สัปดาห์ที่ 3</p>
+
+    <div class="info-box success">
+      <h3>🎯 เป้าหมายของแบบฝึกหัด</h3>
+      <p>สร้างหน้า <strong>Profile Card</strong> ที่สวยงามโดยใช้ CSS ที่เรียนมา ประกอบด้วย:</p>
+      <ul style="margin-left: 20px; margin-top: 10px;">
+        <li>การ์ดกึ่งกลางหน้าจอ</li>
+        <li>รูปโปรไฟล์แบบวงกลม</li>
+        <li>ข้อความที่จัดรูปแบบสวยงาม</li>
+        <li>ปุ่ม Social Media</li>
+      </ul>
+    </div>
+
+    <!-- Preview -->
+    <h2 class="section-title">🖼️ ตัวอย่างผลลัพธ์</h2>
+    <div class="preview-section">
+      <div class="profile-card-demo">
+        <div class="profile-img-demo">👤</div>
+        <h2 class="profile-name-demo">ชื่อของคุณ</h2>
+        <p class="profile-title-demo">Web Developer</p>
+        <p class="profile-bio-demo">
+          นักพัฒนาเว็บที่หลงใหลในการสร้างสรรค์ผลงานที่สวยงามและใช้งานง่าย
+        </p>
+        <div class="social-demo">
+          <a href="#" class="btn-demo">Facebook</a>
+          <a href="#" class="btn-demo">Instagram</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 1: Box Model -->
+    <h2 class="section-title">📦 1. Box Model Properties</h2>
+    
+    <div class="cheat-grid">
+      <!-- Width & Height -->
+      <div class="cheat-card">
+        <div class="cheat-card-title">📏 Width & Height (ขนาด)</div>
+        
+        <div class="property-item">
+          <div class="property-name">width</div>
+          <div class="property-desc">ความกว้างของ Element</div>
+          <div class="property-example">
+width: <span class="value">400px</span>; <span class="comment">/* ค่าตายตัว */</span> <br>
+width: <span class="value">80%</span>; <span class="comment">/* เป็น % ของ parent */</span> <br>
+width: <span class="value">100%</span>; <span class="comment">/* เต็มความกว้าง */</span> <br>
+          </div>
+        </div>
+
+        <div class="property-item">
+          <div class="property-name">height</div>
+          <div class="property-desc">ความสูงของ Element</div>
+          <div class="property-example">
+height: <span class="value">300px</span>; <br>
+height: <span class="value">auto</span>; <span class="comment">/* ปรับตามเนื้อหา */</span>
+          </div>
+        </div>
+
+        <div class="property-item">
+          <div class="property-name">max-width</div>
+          <div class="property-desc">ความกว้างสูงสุด (สำหรับ Responsive)</div>
+          <div class="property-example">
+max-width: <span class="value">400px</span>; <span class="comment">/* กว้างไม่เกิน 400px */</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Padding -->
+      <div class="cheat-card">
+        <div class="cheat-card-title">🔵 Padding (ระยะห่างใน)</div>
+        
+        <div class="property-item">
+          <div class="property-name">padding (ทุกด้าน)</div>
+          <div class="property-desc">ระยะห่างภายใน ทุกด้านเท่ากัน</div>
+          <div class="property-example">
+padding: <span class="value">20px</span>; <br> <span class="comment">/* ทุกด้าน 20px */</span>
+          </div>
+        </div>
+
+        <div class="property-item">
+          <div class="property-name">padding (2 ค่า)</div>
+          <div class="property-desc">บน-ล่าง, ซ้าย-ขวา</div>
+          <div class="property-example">
+padding: <span class="value">20px 30px</span>; <br> <span class="comment">/* บน-ล่าง 20px, ซ้าย-ขวา 30px */</span>
+          </div>
+        </div>
+
+        <div class="property-item">
+          <div class="property-name">padding (4 ค่า)</div>
+          <div class="property-desc">บน ขวา ล่าง ซ้าย (ตามเข็มนาฬิกา)</div>
+          <div class="property-example">
+padding: <span class="value">10px 20px 15px 25px</span>; <br>
+<span class="comment">/*      บน  ขวา  ล่าง ซ้าย */</span>
+          </div>
+        </div>
+
+        <div class="property-item">
+          <div class="property-name">padding-top, padding-right, etc.</div>
+          <div class="property-desc">กำหนดแต่ละด้านแยก</div>
+          <div class="property-example">
+padding-top: <span class="value">10px</span>; <br>
+padding-bottom: <span class="value">15px</span>; <br>
+          </div>
+        </div>
+      </div>
+
+      <!-- Margin -->
+      <div class="cheat-card">
+        <div class="cheat-card-title">🔴 Margin (ระยะห่างนอก)</div>
+        
+        <div class="property-item">
+          <div class="property-name">margin (ทุกด้าน)</div>
+          <div class="property-desc">ระยะห่างภายนอก ทุกด้านเท่ากัน</div>
+          <div class="property-example">
+margin: <span class="value">20px</span>; <br> <span class="comment">/* ทุกด้าน 20px */</span>
+          </div>
+        </div>
+
+        <div class="property-item">
+          <div class="property-name">margin: auto (จัดกึ่งกลาง)</div>
+          <div class="property-desc">จัด Element ให้อยู่กึ่งกลางแนวนอน</div>
+          <div class="property-example">
+margin: <span class="value">0 auto</span>;  <span class="comment">/* กึ่งกลางแนวนอน */</span><br>
+margin: <span class="value">20px auto</span>;  <span class="comment">/* บน-ล่าง 20px + กึ่งกลาง */</span> <br>
+          </div>
+        </div>
+
+        <div class="property-item">
+          <div class="property-name">margin (แต่ละด้าน)</div>
+          <div class="property-desc">เหมือน padding</div>
+          <div class="property-example">
+margin: <span class="value">10px 20px</span>; <br>
+margin: <span class="value">10px 20px 15px 25px</span>; <br>
+          </div>
+        </div>
+      </div>
+
+      <!-- Border -->
+      <div class="cheat-card">
+        <div class="cheat-card-title">🟧 Border (ขอบ)</div>
+        
+        <div class="property-item">
+          <div class="property-name">border</div>
+          <div class="property-desc">ขอบ (ขนาด รูปแบบ สี)</div>
+          <div class="property-example">
+border: <span class="value">2px solid black</span>; <br>
+border: <span class="value">3px dashed #3498db</span>; <br>
+border: <span class="value">1px dotted red</span>; <br>
+          </div>
+        </div>
+
+        <div class="property-item">
+          <div class="property-name">border-radius</div>
+          <div class="property-desc">มุมโค้ง</div>
+          <div class="property-example">
+border-radius: <span class="value">10px</span>; <span class="comment">/* มุมโค้ง */</span><br> 
+border-radius: <span class="value">50%</span>; <span class="comment">/* วงกลม (ถ้าสี่เหลี่ยมจัตุรัส) */</span><br> 
+          </div>
+        </div>
+
+        <div class="property-item">
+          <div class="property-name">border styles</div>
+          <div class="property-desc">รูปแบบเส้นขอบ</div>
+          <div class="property-example">
+solid   <span class="comment">/* เส้นตรง */</span> <br> 
+dashed  <span class="comment">/* เส้นประ */</span> <br> 
+dotted  <span class="comment">/* เส้นจุด */</span> <br> 
+none    <span class="comment">/* ไม่มีขอบ */</span> <br> 
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 2: Colors & Backgrounds -->
+    <h2 class="section-title">🎨 2. Colors & Backgrounds</h2>
+
+    <div class="cheat-grid">
+      <!-- Text Color -->
+      <div class="cheat-card">
+        <div class="cheat-card-title">✏️ Text Color (สีตัวอักษร)</div>
+        
+        <div class="property-item">
+          <div class="property-name">color</div>
+          <div class="property-desc">สีของข้อความ</div>
+          <div class="property-example">
+color: <span class="value">red</span>; <span class="comment">/* ชื่อสี */</span> <br> 
+color: <span class="value">#333333</span>; <span class="comment">/* Hex code */</span> <br> 
+color: <span class="value">rgb(51, 51, 51)</span>; <span class="comment">/* RGB */</span> <br> 
+color: <span class="value">rgba(0, 0, 0, 0.7)</span>; <span class="comment">/* RGB + opacity */</span> <br> 
+          </div>
+        </div>
+      </div>
+
+      <!-- Background -->
+      <div class="cheat-card">
+        <div class="cheat-card-title">🖼️ Background (พื้นหลัง)</div>
+        
+        <div class="property-item">
+          <div class="property-name">background-color</div>
+          <div class="property-desc">สีพื้นหลัง</div>
+          <div class="property-example">
+background-color: <span class="value">#f8f9fa</span>; <br>
+background-color: <span class="value">white</span>; <br>
+background-color: <span class="value">rgba(52, 152, 219, 0.1)</span>; <br>
+          </div>
+        </div>
+
+        <div class="property-item">
+          <div class="property-name">background-image</div>
+          <div class="property-desc">ใส่รูปภาพพื้นหลัง</div>
+          <div class="property-example">
+background-image: <span class="value">url('background.jpg')</span>; <br>
+          </div>
+        </div>
+
+        <div class="property-item">
+          <div class="property-name">background (shorthand)</div>
+          <div class="property-desc">รวมทุกอย่างในบรรทัดเดียว</div>
+          <div class="property-example">
+background: <span class="value">white url('bg.jpg') no-repeat center/cover</span>; <br>
+          </div>
+        </div>
+
+        <div class="property-item">
+          <div class="property-name">linear-gradient</div>
+          <div class="property-desc">พื้นหลังไล่สี</div>
+          <div class="property-example">
+background: <span class="value">linear-gradient(135deg, #667eea 0%, #764ba2 100%)</span>; <br>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Color Palette -->
+    <h3 style="margin-top: 30px; color: #2c3e50;">🎨 Color Palette แนะนำสำหรับ Profile Card</h3>
+    <div class="color-palette">
+      <div class="color-box" style="background: #3498db;">
+        Primary Blue
+        <div class="color-code">#3498db</div>
+      </div>
+      <div class="color-box" style="background: #2ecc71;">
+        Success Green
+        <div class="color-code">#2ecc71</div>
+      </div>
+      <div class="color-box" style="background: #e74c3c;">
+        Danger Red
+        <div class="color-code">#e74c3c</div>
+      </div>
+      <div class="color-box" style="background: #f39c12;">
+        Warning Orange
+        <div class="color-code">#f39c12</div>
+      </div>
+      <div class="color-box" style="background: #9b59b6;">
+        Purple
+        <div class="color-code">#9b59b6</div>
+      </div>
+      <div class="color-box" style="background: #2c3e50;">
+        Dark Gray
+        <div class="color-code">#2c3e50</div>
+      </div>
+      <div class="color-box" style="background: #7f8c8d;">
+        Medium Gray
+        <div class="color-code">#7f8c8d</div>
+      </div>
+      <div class="color-box" style="background: #ecf0f1; color: #333;">
+        Light Gray
+        <div class="color-code">#ecf0f1</div>
+      </div>
+    </div>
+
+    <!-- Section 3: Typography -->
+    <h2 class="section-title">📝 3. Typography (ตัวอักษร)</h2>
+
+    <div class="cheat-grid">
+      <!-- Font -->
+      <div class="cheat-card">
+        <div class="cheat-card-title">🔤 Font Properties</div>
+        
+        <div class="property-item">
+          <div class="property-name">font-family</div>
+          <div class="property-desc">ตระกูลฟอนต์</div>
+          <div class="property-example">
+font-family: <span class="value">Arial, sans-serif</span>; <br>
+font-family: <span class="value">'Segoe UI', Tahoma, Geneva, Verdana, sans-serif</span>; <br>
+          </div>
+        </div>
+
+        <div class="property-item">
+          <div class="property-name">font-size</div>
+          <div class="property-desc">ขนาดตัวอักษร</div>
+          <div class="property-example">
+font-size: <span class="value">16px</span>; <span class="comment">/* ปกติ */</span> <br>
+font-size: <span class="value">1.2em</span>; <span class="comment">/* ใหญ่ขึ้น 20% */</span> <br>
+font-size: <span class="value">24px</span>;  <span class="comment">/* หัวข้อ */</span> <br>
+          </div>
+        </div>
+
+        <div class="property-item">
+          <div class="property-name">font-weight</div>
+          <div class="property-desc">น้ำหนักตัวอักษร</div>
+          <div class="property-example">
+font-weight: <span class="value">normal</span>;  <span class="comment">/* ปกติ (400) */</span> <br>
+font-weight: <span class="value">bold</span>;  <span class="comment">/* หนา (700) */</span> <br>
+font-weight: <span class="value">600</span>;   <span class="comment">/* กึ่งหนา */</span> <br>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div class="cheat-card">
+        <div class="cheat-card-title">📄 Text Properties</div>
+        
+        <div class="property-item">
+          <div class="property-name">text-align</div>
+          <div class="property-desc">จัดตำแหน่งข้อความ</div>
+          <div class="property-example">
+text-align: <span class="value">left</span>;  <span class="comment">/* ซ้าย */</span> <br>
+text-align: <span class="value">center</span>;  <span class="comment">/* กลาง */</span> <br>
+text-align: <span class="value">right</span>; <span class="comment">/* ขวา */</span> <br>
+          </div>
+        </div>
+
+        <div class="property-item">
+          <div class="property-name">line-height</div>
+          <div class="property-desc">ระยะห่างระหว่างบรรทัด</div>
+          <div class="property-example">
+line-height: <span class="value">1.6</span>; <span class="comment">/* อ่านง่าย */</span> <br>
+line-height: <span class="value">2</span>;  <span class="comment">/* เว้นมาก */</span> <br>
+          </div>
+        </div>
+
+        <div class="property-item">
+          <div class="property-name">text-decoration</div>
+          <div class="property-desc">ขีดเส้นใต้/ขีดทับ</div>
+          <div class="property-example">
+text-decoration: <span class="value">none</span>;  <span class="comment">/* ไม่มี (ใช้กับ link) */</span> <br>
+text-decoration: <span class="value">underline</span>; <span class="comment">/* ขีดเส้นใต้ */</span> <br>
+          </div>
+        </div>
+
+        <div class="property-item">
+          <div class="property-name">letter-spacing</div>
+          <div class="property-desc">ระยะห่างระหว่างตัวอักษร</div>
+          <div class="property-example">
+letter-spacing: <span class="value">1px</span>; <span class="comment">/* เว้นห่างเล็กน้อย */</span> <br>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 4: Display & Position -->
+    <h2 class="section-title">📐 4. Display & Layout</h2>
+
+    <div class="cheat-grid">
+      <!-- Display -->
+      <div class="cheat-card">
+        <div class="cheat-card-title">👁️ Display Property</div>
+        
+        <div class="property-item">
+          <div class="property-name">display: block</div>
+          <div class="property-desc">แสดงเป็นบลอก (ขึ้นบรรทัดใหม่)</div>
+          <div class="property-example">
+display: <span class="value">block</span>; 
+<span class="comment">/* กินพื้นที่เต็มความกว้าง */</span> <br>
+          </div>
+        </div>
+
+        <div class="property-item">
+          <div class="property-name">display: inline-block</div>
+          <div class="property-desc">เรียงข้างกัน แต่ปรับขนาดได้</div>
+          <div class="property-example">
+display: <span class="value">inline-block</span>;
+<span class="comment">/* ใช้กับปุ่มที่เรียงข้างกัน */</span> <br>
+          </div>
+        </div>
+
+        <div class="property-item">
+          <div class="property-name">display: flex</div>
+          <div class="property-desc">ใช้ Flexbox (จัด Layout)</div>
+          <div class="property-example">
+display: <span class="value">flex</span>;
+<span class="comment">/* ดูเพิ่มเติมในส่วน Flexbox */</span> <br>
+          </div>
+        </div>
+      </div>
+
+      <!-- Flexbox -->
+      <div class="cheat-card">
+        <div class="cheat-card-title">📦 Flexbox (สำหรับปุ่ม)</div>
+        
+        <div class="property-item">
+          <div class="property-name">display: flex</div>
+          <div class="property-desc">เปิดใช้ Flexbox</div>
+          <div class="property-example">
+display: <span class="value">flex</span>; <br>
+          </div>
+        </div>
+
+        <div class="property-item">
+          <div class="property-name">justify-content</div>
+          <div class="property-desc">จัดตำแหน่งแนวนอน</div>
+          <div class="property-example">
+justify-content: <span class="value">center</span>; <span class="comment">/* กึ่งกลาง */</span> <br>
+justify-content: <span class="value">space-between</span>; <span class="comment">/* กระจาย */</span> <br>
+justify-content: <span class="value">flex-start</span>  <span class="comment">/* ชิดซ้าย */</span> <br>
+          </div>
+        </div>
+
+        <div class="property-item">
+          <div class="property-name">gap</div>
+          <div class="property-desc">ระยะห่างระหว่างไอเทม</div>
+          <div class="property-example">
+gap: <span class="value">10px</span>;<span class="comment">/* เว้นระหว่างปุ่ม */</span><br>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 5: Effects & Shadows -->
+    <h2 class="section-title">✨ 5. Effects & Shadows</h2>
+
+    <div class="cheat-grid">
+      <!-- Box Shadow -->
+      <div class="cheat-card">
+        <div class="cheat-card-title">🌑 Box Shadow (เงา)</div>
+        
+        <div class="property-item">
+          <div class="property-name">box-shadow</div>
+          <div class="property-desc">เงาของกล่อง</div>
+          <div class="property-example">
+box-shadow: <span class="value">0 4px 15px rgba(0,0,0,0.1)</span>; 
+<span class="comment">/*          x  y  blur spread color */</span> <br>
+
+<span class="comment">/* ตัวอย่าง */</span>
+box-shadow: <span class="value">0 2px 5px rgba(0,0,0,0.1)</span>; <span class="comment">/* เงาเบา */</span> <br>
+box-shadow: <span class="value">0 10px 40px rgba(0,0,0,0.2)</span>;<span class="comment">/* เงาเข้ม */</span><br>
+          </div>
+        </div>
+      </div>
+
+      <!-- Opacity -->
+      <div class="cheat-card">
+        <div class="cheat-card-title">👻 Opacity (ความโปร่งใส)</div>
+        
+        <div class="property-item">
+          <div class="property-name">opacity</div>
+          <div class="property-desc">ความทึบของ Element</div>
+          <div class="property-example">
+opacity: <span class="value">1</span>; <span class="comment">/* ทึบ 100% */</span><br>
+opacity: <span class="value">0.7</span>; <span class="comment">/* โปร่งใส 30% */</span><br>
+opacity: <span class="value">0</span>; <span class="comment">/* โปร่งใสหมด */</span> <br>
+          </div>
+        </div>
+      </div>
+
+      <!-- Transition -->
+      <div class="cheat-card">
+        <div class="cheat-card-title">🎬 Transition (ภาพเคลื่อนไหว)</div>
+        
+        <div class="property-item">
+          <div class="property-name">transition</div>
+          <div class="property-desc">เอฟเฟกต์เปลี่ยนแปลง</div>
+          <div class="property-example">
+transition: <span class="value">all 0.3s ease</span>; 
+<span class="comment">/*          property duration timing */</span> <br>
+<span class="comment">/* ตัวอย่างใช้กับปุ่ม */</span> <br>
+.btn:hover {
+  background: <span class="value">#2980b9</span>; 
+}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 6: Complete Example -->
+    <h2 class="section-title">💻 6. ตัวอย่างโค้ดสำหรับ Profile Card</h2>
+
+    <div class="info-box tip">
+      <h3>💡 คำแนะนำ</h3>
+      <p>คัดลอกโค้ดด้านล่างนี้ไปใช้เป็นจุดเริ่มต้น แล้วปรับแต่งตามความชอบ!</p>
+    </div>
+
+    <!-- HTML Structure -->
+    <h3 style="margin-top: 30px; color: #2c3e50;">📄 HTML Structure</h3>
+    <div class="complete-example">
+<span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html</span> <span class="attr">lang</span>=<span class="value-str">"th"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">charset</span>=<span class="value-str">"UTF-8"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;meta</span> <span class="attr">name</span>=<span class="value-str">"viewport"</span> <span class="attr">content</span>=<span class="value-str">"width=device-width, initial-scale=1.0"</span><span class="tag">&gt;</span>
+  <span class="tag">&lt;title&gt;</span>Profile Card<span class="tag">&lt;/title&gt;</span>
+  <span class="tag">&lt;link</span> <span class="attr">rel</span>=<span class="value-str">"stylesheet"</span> <span class="attr">href</span>=<span class="value-str">"style.css"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="value-str">"card"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;img</span> <span class="attr">src</span>=<span class="value-str">"profile.jpg"</span> <span class="attr">alt</span>=<span class="value-str">"รูปโปรไฟล์"</span> <span class="attr">class</span>=<span class="value-str">"profile-img"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;h2</span> <span class="attr">class</span>=<span class="value-str">"name"</span><span class="tag">&gt;</span>ชื่อของคุณ<span class="tag">&lt;/h2&gt;</span>
+    <span class="tag">&lt;p</span> <span class="attr">class</span>=<span class="value-str">"title"</span><span class="tag">&gt;</span>Web Developer<span class="tag">&lt;/p&gt;</span>
+    <span class="tag">&lt;p</span> <span class="attr">class</span>=<span class="value-str">"bio"</span><span class="tag">&gt;</span>
+      คำอธิบายสั้นๆ เกี่ยวกับตัวคุณ หรือทักษะที่มี
+    <span class="tag">&lt;/p&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attr">class</span>=<span class="value-str">"social"</span><span class="tag">&gt;</span>
+      <span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="value-str">"#"</span> <span class="attr">class</span>=<span class="value-str">"btn"</span><span class="tag">&gt;</span>Facebook<span class="tag">&lt;/a&gt;</span>
+      <span class="tag">&lt;a</span> <span class="attr">href</span>=<span class="value-str">"#"</span> <span class="attr">class</span>=<span class="value-str">"btn"</span><span class="tag">&gt;</span>Instagram<span class="tag">&lt;/a&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span>
+    </div>
+
+    <!-- CSS Starter -->
+    <h3 style="margin-top: 30px; color: #2c3e50;">🎨 CSS Starter Code (style.css)</h3>
+    <div class="complete-example">
+<span class="comment">/* ===== Reset & Base Styles ===== */</span>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  padding: 20px;
+}
+
+<span class="comment">/* ===== Card Container ===== */</span>
+.card {
+  <span class="comment">/* ขนาดและตำแหน่ง */</span>
+  max-width: 400px;
+  margin: 0 auto;           <span class="comment">/* จัดกึ่งกลาง */</span>
+  
+  <span class="comment">/* สีและพื้นหลัง */</span>
+  background: white;
+  
+  <span class="comment">/* Padding และ Border */</span>
+  padding: 30px;
+  border-radius: 15px;
+  
+  <span class="comment">/* เงา */</span>
+  box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+  
+  <span class="comment">/* จัดให้เป็นกึ่งกลาง */</span>
+  text-align: center;
+}
+
+<span class="comment">/* ===== Profile Image ===== */</span>
+.profile-img {
+  <span class="comment">/* ขนาด */</span>
+  width: 150px;
+  height: 150px;
+  
+  <span class="comment">/* ทำให้เป็นวงกลม */</span>
+  border-radius: 50%;
+  
+  <span class="comment">/* ระยะห่าง */</span>
+  margin-bottom: 20px;
+  
+  <span class="comment">/* ขอบรูป */</span>
+  border: 5px solid #f0f0f0;
+  
+  <span class="comment">/* ป้องกันรูปบิด */</span>
+  object-fit: cover;
+}
+
+<span class="comment">/* ===== Name ===== */</span>
+.name {
+  font-size: 1.8em;
+  color: #2c3e50;
+  margin-bottom: 5px;
+}
+
+<span class="comment">/* ===== Title/Position ===== */</span>
+.title {
+  color: #7f8c8d;
+  font-size: 1em;
+  margin-bottom: 15px;
+}
+
+<span class="comment">/* ===== Bio/Description ===== */</span>
+.bio {
+  color: #34495e;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+<span class="comment">/* ===== Social Buttons Container ===== */</span>
+.social {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+<span class="comment">/* ===== Individual Button ===== */</span>
+.btn {
+  <span class="comment">/* สีและพื้นหลัง */</span>
+  background: #3498db;
+  color: white;
+  
+  <span class="comment">/* ขนาด */</span>
+  padding: 10px 20px;
+  
+  <span class="comment">/* รูปร่าง */</span>
+  border-radius: 8px;
+  
+  <span class="comment">/* ลบขีดเส้นใต้ของลิงก์ */</span>
+  text-decoration: none;
+  
+  <span class="comment">/* เอฟเฟกต์เปลี่ยนสี */</span>
+  transition: background 0.3s ease;
+}
+
+<span class="comment">/* เมื่อเมาส์ชี้ */</span>
+.btn:hover {
+  background: #2980b9;
+}
+    </div>
+
+    <!-- Section 7: Customization Ideas -->
+    <h2 class="section-title">🎨 7. ไอเดียปรับแต่ง</h2>
+
+    <div class="cheat-grid">
+      <div class="cheat-card">
+        <div class="cheat-card-title">🌈 เปลี่ยนสีธีม</div>
+        <div class="property-example">
+<span class="comment">/* ธีมสีม่วง */</span>
+.card {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: white;
+}
+
+<span class="comment">/* ธีมสีเขียว */</span>
+.btn {
+  background: #2ecc71;
+}
+.btn:hover {
+  background: #27ae60;
+}
+        </div>
+      </div>
+
+      <div class="cheat-card">
+        <div class="cheat-card-title">✨ เพิ่มเอฟเฟกต์</div>
+        <div class="property-example">
+<span class="comment">/* เงาเมื่อ hover */</span>
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 50px rgba(0,0,0,0.2);
+}
+
+<span class="comment">/* รูปโปรไฟล์ขยาย */</span>
+.profile-img:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+}
+        </div>
+      </div>
+
+      <div class="cheat-card">
+        <div class="cheat-card-title">📱 ทำให้ Responsive</div>
+        <div class="property-example">
+<span class="comment">/* สำหรับมือถือ */</span>
+@media (max-width: 768px) {
+  .card {
+    max-width: 100%;
+    padding: 20px;
+  }
+  
+  .profile-img {
+    width: 120px;
+    height: 120px;
+  }
+}
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 8: Quick Reference -->
+    <h2 class="section-title">⚡ 8. Quick Reference Table</h2>
+
+    <table class="quick-table">
+      <thead>
+        <tr>
+          <th>สิ่งที่ต้องการทำ</th>
+          <th>CSS Property</th>
+          <th>ตัวอย่าง</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>จัดกล่องกึ่งกลาง</td>
+          <td><code>margin: 0 auto;</code></td>
+          <td>ต้องมี <code>max-width</code> หรือ <code>width</code></td>
+        </tr>
+        <tr>
+          <td>ทำรูปวงกลม</td>
+          <td><code>border-radius: 50%;</code></td>
+          <td>รูปต้องเป็นสี่เหลี่ยมจัตุรัส</td>
+        </tr>
+        <tr>
+          <td>จัดข้อความกลาง</td>
+          <td><code>text-align: center;</code></td>
+          <td>ใช้กับ parent element</td>
+        </tr>
+        <tr>
+          <td>เว้นระหว่างปุ่ม</td>
+          <td><code>gap: 10px;</code></td>
+          <td>ใช้กับ parent ที่เป็น <code>display: flex;</code></td>
+        </tr>
+        <tr>
+          <td>เงาสวยๆ</td>
+          <td><code>box-shadow: 0 10px 40px rgba(0,0,0,0.1);</code></td>
+          <td>ปรับค่า blur และ spread ตามต้องการ</td>
+        </tr>
+        <tr>
+          <td>ปุ่มเปลี่ยนสีเมื่อ hover</td>
+          <td><code>transition: background 0.3s ease;</code></td>
+          <td>ใส่ใน <code>.btn</code> ปกติ, เปลี่ยนสีใน <code>.btn:hover</code></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Section 9: Common Mistakes -->
+    <h2 class="section-title">⚠️ 9. ข้อผิดพลาดที่พบบ่อย</h2>
+
+    <div class="info-box warning">
+      <h3>❌ ลืมใส่ box-sizing: border-box</h3>
+      <p>ทำให้ขนาดที่คำนวณไม่ตรงตามที่ตั้งใจ</p>
+      <div class="property-example">
+<span class="comment">/* แก้ไข: ใส่ที่ตัว * */</span>
+* {
+  box-sizing: border-box;
+}
+      </div>
+    </div>
+
+    <div class="info-box warning">
+      <h3>❌ ลืมใส่ margin: 0 auto; ให้กับ .card</h3>
+      <p>การ์ดจะไม่อยู่กึ่งกลาง</p>
+      <div class="property-example">
+.card {
+  max-width: 400px;
+  margin: 0 auto;  <span class="comment">/* ต้องมี! */</span>
+}
+      </div>
+    </div>
+
+    <div class="info-box warning">
+      <h3>❌ ลืมใส่ object-fit: cover; ให้รูปโปรไฟล์</h3>
+      <p>รูปอาจบิดเพี้ยนถ้าไม่ใช่สี่เหลี่ยมจัตุรัส</p>
+      <div class="property-example">
+.profile-img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover; <span class="comment">/* ป้องกันบิด */</span>
+}
+      </div>
+    </div>
+
+    <!-- Section 10: Checklist -->
+    <h2 class="section-title">✅ 10. Checklist ก่อนส่งงาน</h2>
+
+    <div class="info-box success">
+      <h3>📋 ตรวจสอบก่อนส่ง</h3>
+      <ul style="margin-left: 20px; line-height: 2;">
+        <li>☐ Card อยู่กึ่งกลางหน้าจอ (<code>margin: 0 auto;</code>)</li>
+        <li>☐ รูปโปรไฟล์เป็นวงกลม (<code>border-radius: 50%;</code>)</li>
+        <li>☐ มี Padding ในการ์ด (อย่างน้อย 20-30px)</li>
+        <li>☐ มีเงาของการ์ด (<code>box-shadow</code>)</li>
+        <li>☐ ปุ่มเรียงข้างกันด้วย Flexbox</li>
+        <li>☐ ปุ่มเปลี่ยนสีเมื่อ hover</li>
+        <li>☐ ฟอนต์อ่านง่าย มี <code>line-height</code></li>
+        <li>☐ สีสวยงาม ตัดกันดี</li>
+        <li>☐ ทดสอบใน Browser แล้ว ไม่มี error</li>
+        <li>☐ Code เรียบร้อย มี comment อธิบาย</li>
+      </ul>
+    </div>
+
+    <!-- Footer -->
+    <div style="text-align: center; margin-top: 60px; padding-top: 30px; border-top: 2px solid #ecf0f1; color: #7f8c8d;">
+      <p>📚 <strong>CSS Cheat Sheet for Profile Card Assignment</strong></p>
+      <p>สัปดาห์ที่ 3: HTML5 Multimedia & CSS3 Introduction</p>
+      <p style="margin-top: 15px;">💡 <strong>Tips:</strong> บันทึก Cheat Sheet นี้ไว้เป็นหน้า Reference ตอนทำงาน!</p>
+      <p style="margin-top: 10px;">🎯 <strong>เป้าหมาย:</strong> เรียนรู้และเข้าใจหลักการ ไม่ใช่แค่ Copy-Paste!</p>
+    </div>
+  </div>
+</body>
+</html>

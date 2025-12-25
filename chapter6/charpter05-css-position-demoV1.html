@@ -1,0 +1,1651 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Position - Interactive Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Prompt', sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            min-height: 100vh;
+            color: #e4e4e7;
+            padding-bottom: 100px;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            padding: 20px 40px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header p {
+            color: #a1a1aa;
+            margin-top: 5px;
+        }
+
+        /* Navigation */
+        .nav-tabs {
+            display: flex;
+            gap: 10px;
+            padding: 20px 40px;
+            flex-wrap: wrap;
+            position: sticky;
+            top: 80px;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 999;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-tab {
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 2px solid transparent;
+            background: rgba(255, 255, 255, 0.05);
+            color: #a1a1aa;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Prompt', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .nav-tab:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .nav-tab.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: #fff;
+            border-color: transparent;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 30px 40px;
+        }
+
+        /* Section Card */
+        .section {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .section-subtitle {
+            color: #a1a1aa;
+            font-size: 0.9rem;
+        }
+
+        /* Explanation Box */
+        .explanation {
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 0 12px 12px 0;
+            margin-bottom: 25px;
+        }
+
+        .explanation h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .explanation p {
+            color: #d4d4d8;
+            line-height: 1.7;
+        }
+
+        .explanation ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .explanation li {
+            color: #d4d4d8;
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        /* Demo Container */
+        .demo-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            .demo-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Code Display */
+        .code-panel {
+            background: #0d1117;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .code-header {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .code-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .code-dot.red { background: #ff5f56; }
+        .code-dot.yellow { background: #ffbd2e; }
+        .code-dot.green { background: #27ca40; }
+
+        .code-title {
+            margin-left: 10px;
+            color: #8b949e;
+            font-size: 0.85rem;
+        }
+
+        .code-content {
+            padding: 20px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.85rem;
+            line-height: 1.8;
+            overflow-x: auto;
+        }
+
+        .code-content pre {
+            margin: 0;
+        }
+
+        /* Syntax Highlighting */
+        .keyword { color: #ff7b72; }
+        .property { color: #79c0ff; }
+        .value { color: #a5d6ff; }
+        .number { color: #ffa657; }
+        .unit { color: #ffa657; }
+        .selector { color: #7ee787; }
+        .comment { color: #8b949e; font-style: italic; }
+
+        /* Visual Demo */
+        .visual-panel {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            overflow: hidden;
+        }
+
+        .visual-header {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 12px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .visual-title {
+            color: #a1a1aa;
+            font-size: 0.85rem;
+        }
+
+        .visual-content {
+            padding: 20px;
+            min-height: 300px;
+        }
+
+        /* Demo Boxes */
+        .demo-area {
+            position: relative;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 19px,
+                rgba(255, 255, 255, 0.03) 19px,
+                rgba(255, 255, 255, 0.03) 20px
+            ),
+            repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 19px,
+                rgba(255, 255, 255, 0.03) 19px,
+                rgba(255, 255, 255, 0.03) 20px
+            );
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 280px;
+            overflow: hidden;
+        }
+
+        .demo-box {
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .demo-box:hover {
+            transform: scale(1.02);
+        }
+
+        /* Color Schemes */
+        .box-blue {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .box-green {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            color: white;
+            box-shadow: 0 4px 15px rgba(17, 153, 142, 0.3);
+        }
+
+        .box-orange {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+            box-shadow: 0 4px 15px rgba(240, 147, 251, 0.3);
+        }
+
+        .box-purple {
+            background: linear-gradient(135deg, #8e2de2, #4a00e0);
+            color: white;
+            box-shadow: 0 4px 15px rgba(142, 45, 226, 0.3);
+        }
+
+        .box-yellow {
+            background: linear-gradient(135deg, #f7971e, #ffd200);
+            color: #1a1a2e;
+            box-shadow: 0 4px 15px rgba(247, 151, 30, 0.3);
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .control-btn {
+            padding: 8px 16px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.05);
+            color: #e4e4e7;
+            cursor: pointer;
+            font-family: 'Prompt', sans-serif;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .control-btn.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-color: transparent;
+        }
+
+        /* Slider Controls */
+        .slider-group {
+            margin-top: 15px;
+        }
+
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+            color: #a1a1aa;
+        }
+
+        .slider-value {
+            color: #667eea;
+            font-family: 'Fira Code', monospace;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.1);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Property Badge */
+        .property-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            background: rgba(102, 126, 234, 0.2);
+            border-radius: 15px;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            color: #667eea;
+            margin: 3px;
+        }
+
+        /* Comparison Table */
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .comparison-table th {
+            background: rgba(255, 255, 255, 0.05);
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .comparison-table tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .check { color: #27ca40; }
+        .cross { color: #ff5f56; }
+
+        /* Static Demo */
+        .static-demo .demo-box {
+            margin-bottom: 10px;
+        }
+
+        /* Relative Demo */
+        .relative-demo .box-original {
+            opacity: 0.3;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            background: transparent !important;
+            box-shadow: none;
+        }
+
+        .relative-demo .box-moved {
+            position: relative;
+        }
+
+        /* Absolute Demo */
+        .absolute-demo .parent-container {
+            position: relative;
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px dashed #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 200px;
+        }
+
+        .absolute-demo .child-absolute {
+            position: absolute;
+        }
+
+        /* ==================== FIXED DEMO - IMPROVED ==================== */
+        /* Fixed Demo - Scrollable viewport simulation */
+        .fixed-demo-viewport {
+            position: relative;
+            height: 350px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .fixed-demo-viewport::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .fixed-demo-viewport::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .fixed-demo-viewport::-webkit-scrollbar-thumb {
+            background: #667eea;
+            border-radius: 4px;
+        }
+
+        .fixed-demo-page {
+            position: relative;
+            min-height: 1000px;
+            padding: 0;
+        }
+
+        .fixed-demo-navbar {
+            position: sticky;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 15px 20px;
+            color: white;
+            font-weight: 600;
+            z-index: 100;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .fixed-demo-button {
+            position: sticky;
+            bottom: 20px;
+            float: right;
+            margin-right: 20px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(240, 147, 251, 0.4);
+            cursor: pointer;
+            z-index: 100;
+        }
+
+        .fixed-demo-content {
+            padding: 20px;
+            clear: both;
+        }
+
+        .fixed-demo-content p {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            color: #a1a1aa;
+            line-height: 1.7;
+        }
+
+        .fixed-demo-content h3 {
+            color: #667eea;
+            margin: 30px 0 15px;
+        }
+
+        .scroll-indicator {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(102, 126, 234, 0.9);
+            padding: 15px 25px;
+            border-radius: 10px;
+            color: white;
+            font-weight: 500;
+            animation: pulse 2s infinite;
+            pointer-events: none;
+            z-index: 50;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.05); }
+        }
+
+        .scroll-indicator.hidden {
+            display: none;
+        }
+
+        /* ==================== STICKY DEMO - IMPROVED ==================== */
+        .sticky-demo-container {
+            height: 400px;
+            overflow-y: auto;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sticky-demo-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .sticky-demo-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .sticky-demo-container::-webkit-scrollbar-thumb {
+            background: #11998e;
+            border-radius: 4px;
+        }
+
+        /* Multiple sticky sections */
+        .sticky-section {
+            position: relative;
+        }
+
+        .sticky-header {
+            position: sticky;
+            top: 0;
+            padding: 15px 20px;
+            font-weight: 600;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .sticky-header-1 {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .sticky-header-2 {
+            background: linear-gradient(135deg, #11998e, #38ef7d);
+            color: white;
+        }
+
+        .sticky-header-3 {
+            background: linear-gradient(135deg, #f093fb, #f5576c);
+            color: white;
+        }
+
+        .sticky-badge {
+            background: rgba(255, 255, 255, 0.3);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 400;
+        }
+
+        .sticky-content {
+            padding: 20px;
+            min-height: 300px;
+        }
+
+        .sticky-content .item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            color: #d4d4d8;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .sticky-content .item-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .sticky-instruction {
+            background: rgba(17, 153, 142, 0.2);
+            border: 1px dashed #11998e;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #38ef7d;
+        }
+
+        /* Z-Index Demo */
+        .zindex-demo {
+            position: relative;
+            height: 250px;
+        }
+
+        .zindex-box {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: move;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .zindex-box:hover {
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .zindex-value {
+            font-family: 'Fira Code', monospace;
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        /* Tips Box */
+        .tips-box {
+            background: rgba(39, 202, 64, 0.1);
+            border-left: 4px solid #27ca40;
+            padding: 20px;
+            border-radius: 0 12px 12px 0;
+            margin-top: 20px;
+        }
+
+        .tips-box h4 {
+            color: #27ca40;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tips-box ul {
+            padding-left: 20px;
+        }
+
+        .tips-box li {
+            color: #d4d4d8;
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        /* Warning Box */
+        .warning-box {
+            background: rgba(255, 189, 46, 0.1);
+            border-left: 4px solid #ffbd2e;
+            padding: 20px;
+            border-radius: 0 12px 12px 0;
+            margin-top: 20px;
+        }
+
+        .warning-box h4 {
+            color: #ffbd2e;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .warning-box ul {
+            padding-left: 20px;
+        }
+
+        .warning-box li {
+            color: #d4d4d8;
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #71717a;
+            font-size: 0.9rem;
+        }
+
+        .footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <h1>🎯 CSS Position Interactive Demo</h1>
+        <p>เรียนรู้การวางตำแหน่งองค์ประกอบด้วย CSS Position แบบเข้าใจง่าย</p>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs">
+        <button class="nav-tab active" data-section="overview">📋 Overview</button>
+        <button class="nav-tab" data-section="static">Static</button>
+        <button class="nav-tab" data-section="relative">Relative</button>
+        <button class="nav-tab" data-section="absolute">Absolute</button>
+        <button class="nav-tab" data-section="fixed">Fixed</button>
+        <button class="nav-tab" data-section="sticky">Sticky</button>
+        <button class="nav-tab" data-section="zindex">Z-Index</button>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        
+        <!-- Overview Section -->
+        <section class="section active" id="overview">
+            <div class="section-header">
+                <div class="section-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">📋</div>
+                <div>
+                    <h2 class="section-title">CSS Position Overview</h2>
+                    <p class="section-subtitle">ภาพรวมของค่า position ทั้งหมด</p>
+                </div>
+            </div>
+
+            <div class="explanation">
+                <h3>🎯 Position Property คืออะไร?</h3>
+                <p>
+                    <code>position</code> เป็น CSS property ที่ใช้กำหนดวิธีการวางตำแหน่งขององค์ประกอบบนหน้าเว็บ 
+                    โดยทำงานร่วมกับ <code>top</code>, <code>right</code>, <code>bottom</code>, <code>left</code> 
+                    เพื่อกำหนดตำแหน่งที่แน่นอน
+                </p>
+            </div>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Position</th>
+                        <th>คำอธิบาย</th>
+                        <th>Document Flow</th>
+                        <th>ใช้ offset ได้</th>
+                        <th>Use Case</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="property-badge">static</span></td>
+                        <td>ค่าเริ่มต้น วางตาม document flow</td>
+                        <td><span class="check">✓</span> อยู่ใน flow</td>
+                        <td><span class="cross">✗</span> ไม่ได้</td>
+                        <td>องค์ประกอบทั่วไป</td>
+                    </tr>
+                    <tr>
+                        <td><span class="property-badge">relative</span></td>
+                        <td>ขยับจากตำแหน่งเดิม</td>
+                        <td><span class="check">✓</span> อยู่ใน flow</td>
+                        <td><span class="check">✓</span> ได้</td>
+                        <td>ปรับตำแหน่งเล็กน้อย, parent ของ absolute</td>
+                    </tr>
+                    <tr>
+                        <td><span class="property-badge">absolute</span></td>
+                        <td>วางตำแหน่งตาม positioned parent</td>
+                        <td><span class="cross">✗</span> หลุดจาก flow</td>
+                        <td><span class="check">✓</span> ได้</td>
+                        <td>Dropdown, Tooltip, Badge</td>
+                    </tr>
+                    <tr>
+                        <td><span class="property-badge">fixed</span></td>
+                        <td>ติดกับ viewport</td>
+                        <td><span class="cross">✗</span> หลุดจาก flow</td>
+                        <td><span class="check">✓</span> ได้</td>
+                        <td>Navbar, Back to top button</td>
+                    </tr>
+                    <tr>
+                        <td><span class="property-badge">sticky</span></td>
+                        <td>ผสม relative + fixed</td>
+                        <td><span class="check">✓</span> อยู่ใน flow</td>
+                        <td><span class="check">✓</span> ได้</td>
+                        <td>Sticky header, Sidebar</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="tips-box">
+                <h4>💡 เคล็ดลับการเลือกใช้</h4>
+                <ul>
+                    <li><strong>static</strong> - ใช้เมื่อไม่ต้องการควบคุมตำแหน่งพิเศษ (ค่าเริ่มต้น)</li>
+                    <li><strong>relative</strong> - ใช้เมื่อต้องการขยับเล็กน้อย หรือเป็น container ให้ absolute</li>
+                    <li><strong>absolute</strong> - ใช้เมื่อต้องการวางซ้อนหรือวางตำแหน่งตาม parent</li>
+                    <li><strong>fixed</strong> - ใช้เมื่อต้องการให้ติดหน้าจอตลอดเวลา</li>
+                    <li><strong>sticky</strong> - ใช้เมื่อต้องการให้ติดเมื่อ scroll ถึงจุดที่กำหนด</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Static Section -->
+        <section class="section" id="static">
+            <div class="section-header">
+                <div class="section-icon" style="background: linear-gradient(135deg, #71717a, #52525b);">📦</div>
+                <div>
+                    <h2 class="section-title">position: static</h2>
+                    <p class="section-subtitle">ค่าเริ่มต้น - ไหลตามปกติ</p>
+                </div>
+            </div>
+
+            <div class="explanation">
+                <h3>📖 อธิบาย</h3>
+                <p>
+                    <code>position: static</code> เป็นค่าเริ่มต้นของทุกองค์ประกอบ HTML องค์ประกอบจะวางตาม 
+                    "normal document flow" คือเรียงต่อกันตามลำดับใน HTML 
+                    <strong>ไม่สามารถใช้ top, right, bottom, left ได้</strong>
+                </p>
+            </div>
+
+            <div class="demo-container">
+                <div class="code-panel">
+                    <div class="code-header">
+                        <span class="code-dot red"></span>
+                        <span class="code-dot yellow"></span>
+                        <span class="code-dot green"></span>
+                        <span class="code-title">style.css</span>
+                    </div>
+                    <div class="code-content">
+<pre><span class="selector">.box</span> {
+    <span class="property">position</span>: <span class="value">static</span>;  <span class="comment">/* ค่าเริ่มต้น */</span>
+    
+    <span class="comment">/* ⚠️ ไม่มีผล! */</span>
+    <span class="property">top</span>: <span class="number">20</span><span class="unit">px</span>;
+    <span class="property">left</span>: <span class="number">50</span><span class="unit">px</span>;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="visual-panel">
+                    <div class="visual-header">
+                        <span class="visual-title">👁️ ผลลัพธ์</span>
+                    </div>
+                    <div class="visual-content">
+                        <div class="demo-area static-demo">
+                            <div class="demo-box box-blue">Box 1 (static)</div>
+                            <div class="demo-box box-green">Box 2 (static)</div>
+                            <div class="demo-box box-orange">Box 3 (static)</div>
+                        </div>
+                        <p style="margin-top: 15px; color: #a1a1aa; font-size: 0.85rem;">
+                            📌 ทุก box เรียงต่อกันตาม document flow ไม่ว่าจะกำหนด top/left เท่าไหร่
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Relative Section -->
+        <section class="section" id="relative">
+            <div class="section-header">
+                <div class="section-icon" style="background: linear-gradient(135deg, #667eea, #764ba2);">↗️</div>
+                <div>
+                    <h2 class="section-title">position: relative</h2>
+                    <p class="section-subtitle">ขยับจากตำแหน่งเดิม</p>
+                </div>
+            </div>
+
+            <div class="explanation">
+                <h3>📖 อธิบาย</h3>
+                <p>
+                    <code>position: relative</code> ทำให้องค์ประกอบขยับจาก<strong>ตำแหน่งเดิม</strong>ของมัน 
+                    โดยยังคงจอง<strong>พื้นที่เดิม</strong>ไว้ใน document flow
+                </p>
+                <ul>
+                    <li><code>top: 20px</code> = ขยับลงจากขอบบน 20px</li>
+                    <li><code>left: 30px</code> = ขยับขวาจากขอบซ้าย 30px</li>
+                    <li>องค์ประกอบอื่นไม่เลื่อนตาม เพราะพื้นที่เดิมยังถูกจองอยู่</li>
+                </ul>
+            </div>
+
+            <div class="demo-container">
+                <div class="code-panel">
+                    <div class="code-header">
+                        <span class="code-dot red"></span>
+                        <span class="code-dot yellow"></span>
+                        <span class="code-dot green"></span>
+                        <span class="code-title">style.css</span>
+                    </div>
+                    <div class="code-content">
+<pre><span class="selector">.box-moved</span> {
+    <span class="property">position</span>: <span class="value">relative</span>;
+    <span class="property">top</span>: <span class="number" id="relTopValue">20</span><span class="unit">px</span>;
+    <span class="property">left</span>: <span class="number" id="relLeftValue">30</span><span class="unit">px</span>;
+    
+    <span class="comment">/* ขยับจากตำแหน่งเดิม */</span>
+    <span class="comment">/* พื้นที่เดิมยังถูกจองอยู่ */</span>
+}</pre>
+                    </div>
+                </div>
+
+                <div class="visual-panel">
+                    <div class="visual-header">
+                        <span class="visual-title">👁️ ผลลัพธ์ (ลองปรับค่า!)</span>
+                    </div>
+                    <div class="visual-content">
+                        <div class="demo-area relative-demo">
+                            <div class="demo-box box-blue box-original">ตำแหน่งเดิม (ghost)</div>
+                            <div class="demo-box box-blue box-moved" id="relativeBox">Box ที่ขยับแล้ว</div>
+                        </div>
+                        
+                        <div class="slider-group">
+                            <div class="slider-label">
+                                <span>top:</span>
+                                <span class="slider-value" id="relTopDisplay">20px</span>
+                            </div>
+                            <input type="range" id="relTopSlider" min="-50" max="100" value="20">
+                        </div>
+                        
+                        <div class="slider-group">
+                            <div class="slider-label">
+                                <span>left:</span>
+                                <span class="slider-value" id="relLeftDisplay">30px</span>
+                            </div>
+                            <input type="range" id="relLeftSlider" min="-50" max="150" value="30">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-box">
+                <h4>💡 Use Cases ที่พบบ่อย</h4>
+                <ul>
+                    <li>ปรับตำแหน่งเล็กน้อยโดยไม่กระทบ layout</li>
+                    <li>เป็น <strong>container</strong> ให้ลูกที่เป็น <code>position: absolute</code></li>
+                    <li>สร้าง <strong>stacking context</strong> เพื่อใช้ z-index</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Absolute Section -->
+        <section class="section" id="absolute">
+            <div class="section-header">
+                <div class="section-icon" style="background: linear-gradient(135deg, #f093fb, #f5576c);">📍</div>
+                <div>
+                    <h2 class="section-title">position: absolute</h2>
+                    <p class="section-subtitle">วางตำแหน่งตาม positioned parent</p>
+                </div>
+            </div>
+
+            <div class="explanation">
+                <h3>📖 อธิบาย</h3>
+                <p>
+                    <code>position: absolute</code> ทำให้องค์ประกอบ<strong>หลุดออก</strong>จาก document flow 
+                    และวางตำแหน่งตาม<strong>positioned ancestor</strong> ที่ใกล้ที่สุด 
+                    (คือ parent ที่มี position ไม่ใช่ static)
+                </p>
+                <ul>
+                    <li>ถ้าไม่มี positioned parent จะวางตาม <code>&lt;body&gt;</code></li>
+                    <li>องค์ประกอบอื่นจะเลื่อนเข้ามาแทนที่ เพราะพื้นที่ไม่ถูกจองแล้ว</li>
+                    <li>ใช้ <code>top, right, bottom, left</code> กำหนดตำแหน่ง</li>
+                </ul>
+            </div>
+
+            <div class="demo-container">
+                <div class="code-panel">
+                    <div class="code-header">
+                        <span class="code-dot red"></span>
+                        <span class="code-dot yellow"></span>
+                        <span class="code-dot green"></span>
+                        <span class="code-title">style.css</span>
+                    </div>
+                    <div class="code-content">
+<pre><span class="selector">.parent</span> {
+    <span class="property">position</span>: <span class="value">relative</span>;  <span class="comment">/* สำคัญ! */</span>
+    <span class="property">width</span>: <span class="number">100</span><span class="unit">%</span>;
+    <span class="property">height</span>: <span class="number">200</span><span class="unit">px</span>;
+}
+
+<span class="selector">.child</span> {
+    <span class="property">position</span>: <span class="value">absolute</span>;
+    <span class="property" id="absCornerProp">top</span>: <span class="number" id="absCornerVal">10</span><span class="unit">px</span>;
+    <span class="property" id="absCornerProp2">left</span>: <span class="number" id="absCornerVal2">10</span><span class="unit">px</span>;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="visual-panel">
+                    <div class="visual-header">
+                        <span class="visual-title">👁️ ผลลัพธ์</span>
+                    </div>
+                    <div class="visual-content">
+                        <div class="demo-area absolute-demo">
+                            <div class="parent-container">
+                                <span style="position: absolute; top: 5px; left: 10px; color: #667eea; font-size: 0.8rem;">Parent (relative)</span>
+                                <div class="demo-box box-orange child-absolute" id="absoluteBox">
+                                    Child (absolute)
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="controls">
+                            <button class="control-btn active" data-corner="top-left" onclick="moveAbsolute('top-left')">↖️ Top Left</button>
+                            <button class="control-btn" data-corner="top-right" onclick="moveAbsolute('top-right')">↗️ Top Right</button>
+                            <button class="control-btn" data-corner="bottom-left" onclick="moveAbsolute('bottom-left')">↙️ Bottom Left</button>
+                            <button class="control-btn" data-corner="bottom-right" onclick="moveAbsolute('bottom-right')">↘️ Bottom Right</button>
+                            <button class="control-btn" data-corner="center" onclick="moveAbsolute('center')">⊕ Center</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ ข้อควรระวัง</h4>
+                <ul>
+                    <li>ต้องมี parent ที่เป็น <code>position: relative/absolute/fixed</code> มิฉะนั้นจะอิงตาม viewport</li>
+                    <li>องค์ประกอบ absolute จะ<strong>ไม่มี width</strong> โดยอัตโนมัติ (shrink to content)</li>
+                    <li>ใช้ <code>width: 100%</code> หรือ <code>left: 0; right: 0;</code> เพื่อขยายเต็ม parent</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Fixed Section - IMPROVED -->
+        <section class="section" id="fixed">
+            <div class="section-header">
+                <div class="section-icon" style="background: linear-gradient(135deg, #f5576c, #f093fb);">📌</div>
+                <div>
+                    <h2 class="section-title">position: fixed</h2>
+                    <p class="section-subtitle">ติดกับหน้าจอ (viewport)</p>
+                </div>
+            </div>
+
+            <div class="explanation">
+                <h3>📖 อธิบาย</h3>
+                <p>
+                    <code>position: fixed</code> ทำให้องค์ประกอบ<strong>ติดกับ viewport</strong> (หน้าจอ) 
+                    ไม่ว่าจะ scroll ไปที่ไหน องค์ประกอบจะอยู่ที่เดิมตลอด
+                </p>
+                <ul>
+                    <li>หลุดออกจาก document flow เหมือน absolute</li>
+                    <li>ตำแหน่งอิงจาก<strong>หน้าจอ</strong> ไม่ใช่ parent</li>
+                    <li>เหมาะสำหรับ: Navbar, Footer, Chat widget, Back to top button</li>
+                </ul>
+            </div>
+
+            <div class="demo-container">
+                <div class="code-panel">
+                    <div class="code-header">
+                        <span class="code-dot red"></span>
+                        <span class="code-dot yellow"></span>
+                        <span class="code-dot green"></span>
+                        <span class="code-title">style.css</span>
+                    </div>
+                    <div class="code-content">
+<pre><span class="comment">/* Fixed Navbar - ติดด้านบน */</span>
+<span class="selector">.fixed-navbar</span> {
+    <span class="property">position</span>: <span class="value">fixed</span>;
+    <span class="property">top</span>: <span class="number">0</span>;
+    <span class="property">left</span>: <span class="number">0</span>;
+    <span class="property">right</span>: <span class="number">0</span>;
+    <span class="property">z-index</span>: <span class="number">100</span>;
+}
+
+<span class="comment">/* Fixed Button - ติดมุมขวาล่าง */</span>
+<span class="selector">.back-to-top</span> {
+    <span class="property">position</span>: <span class="value">fixed</span>;
+    <span class="property">bottom</span>: <span class="number">20</span><span class="unit">px</span>;
+    <span class="property">right</span>: <span class="number">20</span><span class="unit">px</span>;
+}</pre>
+                    </div>
+                </div>
+
+                <div class="visual-panel">
+                    <div class="visual-header">
+                        <span class="visual-title">👁️ ทดลอง Scroll ในกรอบด้านล่าง!</span>
+                    </div>
+                    <div class="visual-content">
+                        <div class="sticky-instruction">
+                            <span>👇</span>
+                            <span>Scroll ในกรอบด้านล่างเพื่อดูว่า Navbar และปุ่ม ⬆️ ติดอยู่กับที่!</span>
+                        </div>
+                        
+                        <!-- Simulated viewport for Fixed demo -->
+                        <div class="fixed-demo-viewport" id="fixedViewport">
+                            <div class="scroll-indicator" id="scrollHint">👆 เลื่อนลงเพื่อดู Fixed!</div>
+                            <div class="fixed-demo-page">
+                                <!-- Fixed Navbar (sticky within container) -->
+                                <div class="fixed-demo-navbar">
+                                    <span>🚀 Fixed Navbar</span>
+                                    <span style="font-size: 0.8rem; opacity: 0.8;">ติดด้านบนตลอด!</span>
+                                </div>
+                                
+                                <div class="fixed-demo-content">
+                                    <h3>📄 เนื้อหาหน้าเว็บ</h3>
+                                    <p>เนื้อหาส่วนที่ 1 - Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                                    <p>เนื้อหาส่วนที่ 2 - Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                                    <p>เนื้อหาส่วนที่ 3 - Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+                                    
+                                    <h3>📝 ส่วนที่ 2</h3>
+                                    <p>เนื้อหาส่วนที่ 4 - Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                                    <p>เนื้อหาส่วนที่ 5 - Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+                                    <p>เนื้อหาส่วนที่ 6 - Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit.</p>
+                                    
+                                    <h3>📌 ส่วนที่ 3</h3>
+                                    <p>เนื้อหาส่วนที่ 7 - At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum.</p>
+                                    <p>เนื้อหาส่วนที่ 8 - Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus.</p>
+                                    <p>เนื้อหาส่วนที่ 9 - Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet.</p>
+                                    
+                                    <h3>🎯 ส่วนสุดท้าย</h3>
+                                    <p>เนื้อหาส่วนที่ 10 - Et harum quidem rerum facilis est et expedita distinctio.</p>
+                                    <p>สังเกตว่า Navbar ด้านบน และปุ่ม ⬆️ ด้านล่างขวา ติดอยู่กับที่ตลอด!</p>
+                                </div>
+                                
+                                <!-- Fixed Button (sticky within container) -->
+                                <div class="fixed-demo-button" title="Back to Top">⬆️</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-box">
+                <h4>💡 Use Cases ที่พบบ่อย</h4>
+                <ul>
+                    <li><strong>Fixed Navbar</strong> - เมนูด้านบนที่ติดตลอด</li>
+                    <li><strong>Back to Top</strong> - ปุ่มกลับด้านบน</li>
+                    <li><strong>Chat Widget</strong> - กล่องแชทมุมขวาล่าง</li>
+                    <li><strong>Cookie Banner</strong> - แถบแจ้งเตือนด้านล่าง</li>
+                    <li><strong>Modal Overlay</strong> - พื้นหลังสีดำของ popup</li>
+                </ul>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ ข้อควรระวัง</h4>
+                <ul>
+                    <li>Fixed element จะ<strong>บังเนื้อหา</strong>ด้านหลัง - ต้องเพิ่ม padding ให้ body</li>
+                    <li>บน Mobile อาจมีปัญหากับ Virtual Keyboard</li>
+                    <li>ถ้ามี parent ที่มี <code>transform</code> จะทำให้ fixed ไม่ทำงานตามที่คาด</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Sticky Section - IMPROVED -->
+        <section class="section" id="sticky">
+            <div class="section-header">
+                <div class="section-icon" style="background: linear-gradient(135deg, #11998e, #38ef7d);">🧲</div>
+                <div>
+                    <h2 class="section-title">position: sticky</h2>
+                    <p class="section-subtitle">ผสม relative + fixed</p>
+                </div>
+            </div>
+
+            <div class="explanation">
+                <h3>📖 อธิบาย</h3>
+                <p>
+                    <code>position: sticky</code> เป็นการผสมระหว่าง relative และ fixed 
+                    องค์ประกอบจะทำตัวเป็น relative ปกติ จนกว่าจะ scroll ถึง<strong>จุดที่กำหนด</strong> 
+                    แล้วจะ "ติด" เหมือน fixed
+                </p>
+                <ul>
+                    <li><strong>ต้องกำหนด</strong> top, bottom, left, หรือ right อย่างน้อย 1 ค่า</li>
+                    <li>ทำงานภายใน<strong>ขอบเขตของ parent</strong> (section) เท่านั้น</li>
+                    <li>เมื่อ scroll ผ่าน section ไปแล้ว sticky header จะเลื่อนตามไปด้วย</li>
+                </ul>
+            </div>
+
+            <div class="demo-container">
+                <div class="code-panel">
+                    <div class="code-header">
+                        <span class="code-dot red"></span>
+                        <span class="code-dot yellow"></span>
+                        <span class="code-dot green"></span>
+                        <span class="code-title">style.css</span>
+                    </div>
+                    <div class="code-content">
+<pre><span class="selector">.sticky-header</span> {
+    <span class="property">position</span>: <span class="value">sticky</span>;
+    <span class="property">top</span>: <span class="number">0</span>;  <span class="comment">/* จุด trigger */</span>
+    <span class="property">background</span>: <span class="value">#667eea</span>;
+    <span class="property">z-index</span>: <span class="number">10</span>;
+}
+
+<span class="comment">/* 
+   Sticky ทำงานภายใน parent section
+   เมื่อ scroll ผ่าน section ไปแล้ว
+   header จะเลื่อนขึ้นไปด้วย!
+*/</span></pre>
+                    </div>
+                </div>
+
+                <div class="visual-panel">
+                    <div class="visual-header">
+                        <span class="visual-title">👁️ ลอง Scroll ดูความมหัศจรรย์!</span>
+                    </div>
+                    <div class="visual-content">
+                        <div class="sticky-instruction">
+                            <span>👇</span>
+                            <span>Scroll ในกรอบด้านล่าง - สังเกต Header แต่ละ Section จะ "ติด" ที่ด้านบน!</span>
+                        </div>
+                        
+                        <div class="sticky-demo-container">
+                            <!-- Section 1 -->
+                            <div class="sticky-section">
+                                <div class="sticky-header sticky-header-1">
+                                    🍎 หมวด: ผลไม้
+                                    <span class="sticky-badge">Sticky!</span>
+                                </div>
+                                <div class="sticky-content">
+                                    <div class="item">
+                                        <div class="item-icon">🍊</div>
+                                        <div>ส้ม - มีวิตามิน C สูง</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="item-icon">🍌</div>
+                                        <div>กล้วย - ให้พลังงานดี</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="item-icon">🍇</div>
+                                        <div>องุ่น - มีสารต้านอนุมูลอิสระ</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="item-icon">🍓</div>
+                                        <div>สตรอว์เบอร์รี่ - อร่อยมาก</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="item-icon">🥭</div>
+                                        <div>มะม่วง - ราชาผลไม้ไทย</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Section 2 -->
+                            <div class="sticky-section">
+                                <div class="sticky-header sticky-header-2">
+                                    🥬 หมวด: ผัก
+                                    <span class="sticky-badge">Sticky!</span>
+                                </div>
+                                <div class="sticky-content">
+                                    <div class="item">
+                                        <div class="item-icon">🥕</div>
+                                        <div>แครอท - ดีต่อสายตา</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="item-icon">🥦</div>
+                                        <div>บร็อคโคลี่ - ซุปเปอร์ฟู้ด</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="item-icon">🌽</div>
+                                        <div>ข้าวโพด - มีไฟเบอร์</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="item-icon">🍅</div>
+                                        <div>มะเขือเทศ - ไลโคปีนสูง</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="item-icon">🥬</div>
+                                        <div>ผักกาด - วิตามินเยอะ</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Section 3 -->
+                            <div class="sticky-section">
+                                <div class="sticky-header sticky-header-3">
+                                    🍖 หมวด: เนื้อสัตว์
+                                    <span class="sticky-badge">Sticky!</span>
+                                </div>
+                                <div class="sticky-content">
+                                    <div class="item">
+                                        <div class="item-icon">🍗</div>
+                                        <div>ไก่ - โปรตีนคุณภาพ</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="item-icon">🥩</div>
+                                        <div>เนื้อวัว - ธาตุเหล็กสูง</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="item-icon">🐟</div>
+                                        <div>ปลา - โอเมก้า 3</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="item-icon">🦐</div>
+                                        <div>กุ้ง - แคลอรี่ต่ำ</div>
+                                    </div>
+                                    <div class="item">
+                                        <div class="item-icon">🥚</div>
+                                        <div>ไข่ - อาหารครบถ้วน</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="warning-box">
+                <h4>⚠️ Sticky ไม่ทำงาน? ตรวจสอบสิ่งนี้</h4>
+                <ul>
+                    <li>ลืมกำหนด <code>top</code> หรือ offset อื่นๆ</li>
+                    <li>Parent มี <code>overflow: hidden</code> หรือ <code>auto</code></li>
+                    <li>Parent ไม่มี height เพียงพอให้ scroll</li>
+                    <li>มี ancestor ที่มี <code>overflow</code> ที่ไม่ใช่ visible</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Z-Index Section -->
+        <section class="section" id="zindex">
+            <div class="section-header">
+                <div class="section-icon" style="background: linear-gradient(135deg, #8e2de2, #4a00e0);">📚</div>
+                <div>
+                    <h2 class="section-title">z-index</h2>
+                    <p class="section-subtitle">ควบคุมลำดับการซ้อนทับ</p>
+                </div>
+            </div>
+
+            <div class="explanation">
+                <h3>📖 อธิบาย</h3>
+                <p>
+                    <code>z-index</code> ควบคุมว่าองค์ประกอบใดจะอยู่<strong>ด้านหน้า</strong>หรือ<strong>ด้านหลัง</strong> 
+                    เมื่อมีการซ้อนทับกัน ค่ายิ่งสูง ยิ่งอยู่ด้านหน้า
+                </p>
+                <ul>
+                    <li><strong>ใช้ได้เฉพาะ</strong>กับ positioned elements (relative, absolute, fixed, sticky)</li>
+                    <li>ค่าเริ่มต้นคือ <code>auto</code> (เท่ากับ 0)</li>
+                    <li>ค่าสามารถเป็น<strong>ลบได้</strong> เช่น z-index: -1</li>
+                    <li>ทำงานภายใน<strong>stacking context</strong> เดียวกัน</li>
+                </ul>
+            </div>
+
+            <div class="demo-container">
+                <div class="code-panel">
+                    <div class="code-header">
+                        <span class="code-dot red"></span>
+                        <span class="code-dot yellow"></span>
+                        <span class="code-dot green"></span>
+                        <span class="code-title">style.css</span>
+                    </div>
+                    <div class="code-content">
+<pre><span class="selector">.box-1</span> {
+    <span class="property">position</span>: <span class="value">absolute</span>;
+    <span class="property">z-index</span>: <span class="number" id="z1Val">1</span>;
+}
+
+<span class="selector">.box-2</span> {
+    <span class="property">position</span>: <span class="value">absolute</span>;
+    <span class="property">z-index</span>: <span class="number" id="z2Val">2</span>;
+}
+
+<span class="selector">.box-3</span> {
+    <span class="property">position</span>: <span class="value">absolute</span>;
+    <span class="property">z-index</span>: <span class="number" id="z3Val">3</span>;
+}
+
+<span class="comment">/* ค่า z-index สูงกว่า = อยู่ด้านหน้า */</span></pre>
+                    </div>
+                </div>
+
+                <div class="visual-panel">
+                    <div class="visual-header">
+                        <span class="visual-title">👁️ ลองปรับค่า z-index</span>
+                    </div>
+                    <div class="visual-content">
+                        <div class="demo-area zindex-demo" id="zindexDemo">
+                            <div class="zindex-box box-blue" id="zBox1" style="top: 30px; left: 30px; z-index: 1;">
+                                Box 1
+                                <span class="zindex-value">z: 1</span>
+                            </div>
+                            <div class="zindex-box box-green" id="zBox2" style="top: 60px; left: 80px; z-index: 2;">
+                                Box 2
+                                <span class="zindex-value">z: 2</span>
+                            </div>
+                            <div class="zindex-box box-orange" id="zBox3" style="top: 90px; left: 130px; z-index: 3;">
+                                Box 3
+                                <span class="zindex-value">z: 3</span>
+                            </div>
+                        </div>
+                        
+                        <div class="slider-group">
+                            <div class="slider-label">
+                                <span style="color: #667eea;">Box 1 z-index:</span>
+                                <span class="slider-value" id="z1Display">1</span>
+                            </div>
+                            <input type="range" id="z1Slider" min="-1" max="10" value="1" oninput="updateZIndex(1)">
+                        </div>
+                        
+                        <div class="slider-group">
+                            <div class="slider-label">
+                                <span style="color: #11998e;">Box 2 z-index:</span>
+                                <span class="slider-value" id="z2Display">2</span>
+                            </div>
+                            <input type="range" id="z2Slider" min="-1" max="10" value="2" oninput="updateZIndex(2)">
+                        </div>
+                        
+                        <div class="slider-group">
+                            <div class="slider-label">
+                                <span style="color: #f093fb;">Box 3 z-index:</span>
+                                <span class="slider-value" id="z3Display">3</span>
+                            </div>
+                            <input type="range" id="z3Slider" min="-1" max="10" value="3" oninput="updateZIndex(3)">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tips-box">
+                <h4>💡 Best Practices สำหรับ z-index</h4>
+                <ul>
+                    <li>ใช้<strong>ระบบตัวเลข</strong>ที่มีช่วง เช่น 10, 20, 30... (เผื่อเพิ่มทีหลัง)</li>
+                    <li>กำหนด<strong>มาตรฐาน</strong>ในโปรเจค เช่น: Modal=1000, Dropdown=100, Tooltip=500</li>
+                    <li>หลีกเลี่ยงค่าสูงเกินไป เช่น 9999999</li>
+                    <li>ใช้ <strong>CSS Variables</strong> จัดการ: <code>--z-modal: 1000;</code></li>
+                </ul>
+            </div>
+
+            <div class="code-panel" style="margin-top: 20px;">
+                <div class="code-header">
+                    <span class="code-dot red"></span>
+                    <span class="code-dot yellow"></span>
+                    <span class="code-dot green"></span>
+                    <span class="code-title">z-index-system.css (แนะนำ)</span>
+                </div>
+                <div class="code-content">
+<pre><span class="selector">:root</span> {
+    <span class="comment">/* Z-Index System */</span>
+    <span class="property">--z-dropdown</span>: <span class="number">100</span>;
+    <span class="property">--z-sticky</span>: <span class="number">200</span>;
+    <span class="property">--z-fixed</span>: <span class="number">300</span>;
+    <span class="property">--z-modal-backdrop</span>: <span class="number">400</span>;
+    <span class="property">--z-modal</span>: <span class="number">500</span>;
+    <span class="property">--z-popover</span>: <span class="number">600</span>;
+    <span class="property">--z-tooltip</span>: <span class="number">700</span>;
+}
+
+<span class="selector">.modal</span> {
+    <span class="property">z-index</span>: <span class="value">var(--z-modal)</span>;
+}</pre>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>สร้างด้วย ❤️ สำหรับนักศึกษาวิชา Web Development</p>
+        <p>อ้างอิง: <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/position" target="_blank">MDN Web Docs - CSS Position</a></p>
+    </footer>
+
+    <script>
+        // Tab Navigation
+        const tabs = document.querySelectorAll('.nav-tab');
+        const sections = document.querySelectorAll('.section');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetSection = tab.dataset.section;
+                
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                sections.forEach(s => s.classList.remove('active'));
+                document.getElementById(targetSection).classList.add('active');
+            });
+        });
+
+        // Relative Position Demo
+        const relTopSlider = document.getElementById('relTopSlider');
+        const relLeftSlider = document.getElementById('relLeftSlider');
+        const relativeBox = document.getElementById('relativeBox');
+
+        relTopSlider.addEventListener('input', function() {
+            const value = this.value;
+            relativeBox.style.top = value + 'px';
+            document.getElementById('relTopDisplay').textContent = value + 'px';
+            document.getElementById('relTopValue').textContent = value;
+        });
+
+        relLeftSlider.addEventListener('input', function() {
+            const value = this.value;
+            relativeBox.style.left = value + 'px';
+            document.getElementById('relLeftDisplay').textContent = value + 'px';
+            document.getElementById('relLeftValue').textContent = value;
+        });
+
+        // Absolute Position Demo
+        function moveAbsolute(corner) {
+            const box = document.getElementById('absoluteBox');
+            const buttons = document.querySelectorAll('.absolute-demo .control-btn');
+            
+            buttons.forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`[data-corner="${corner}"]`).classList.add('active');
+            
+            box.style.top = 'auto';
+            box.style.right = 'auto';
+            box.style.bottom = 'auto';
+            box.style.left = 'auto';
+            
+            const prop1 = document.getElementById('absCornerProp');
+            const prop2 = document.getElementById('absCornerProp2');
+            const val1 = document.getElementById('absCornerVal');
+            const val2 = document.getElementById('absCornerVal2');
+            
+            switch(corner) {
+                case 'top-left':
+                    box.style.top = '10px';
+                    box.style.left = '10px';
+                    prop1.textContent = 'top';
+                    prop2.textContent = 'left';
+                    break;
+                case 'top-right':
+                    box.style.top = '10px';
+                    box.style.right = '10px';
+                    prop1.textContent = 'top';
+                    prop2.textContent = 'right';
+                    break;
+                case 'bottom-left':
+                    box.style.bottom = '10px';
+                    box.style.left = '10px';
+                    prop1.textContent = 'bottom';
+                    prop2.textContent = 'left';
+                    break;
+                case 'bottom-right':
+                    box.style.bottom = '10px';
+                    box.style.right = '10px';
+                    prop1.textContent = 'bottom';
+                    prop2.textContent = 'right';
+                    break;
+                case 'center':
+                    box.style.top = '50%';
+                    box.style.left = '50%';
+                    box.style.transform = 'translate(-50%, -50%)';
+                    prop1.textContent = 'top';
+                    val1.textContent = '50%';
+                    prop2.textContent = 'left';
+                    val2.textContent = '50%';
+                    return;
+            }
+            
+            val1.textContent = '10';
+            val2.textContent = '10';
+            box.style.transform = 'none';
+        }
+
+        // Fixed Demo - Hide scroll hint after scrolling
+        const fixedViewport = document.getElementById('fixedViewport');
+        const scrollHint = document.getElementById('scrollHint');
+        
+        fixedViewport.addEventListener('scroll', function() {
+            if (this.scrollTop > 20) {
+                scrollHint.classList.add('hidden');
+            }
+        });
+
+        // Z-Index Demo
+        function updateZIndex(boxNum) {
+            const slider = document.getElementById(`z${boxNum}Slider`);
+            const display = document.getElementById(`z${boxNum}Display`);
+            const box = document.getElementById(`zBox${boxNum}`);
+            const codeVal = document.getElementById(`z${boxNum}Val`);
+            
+            const value = slider.value;
+            display.textContent = value;
+            box.style.zIndex = value;
+            box.querySelector('.zindex-value').textContent = `z: ${value}`;
+            codeVal.textContent = value;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            relativeBox.style.top = '20px';
+            relativeBox.style.left = '30px';
+            moveAbsolute('top-left');
+        });
+    </script>
+</body>
+</html>

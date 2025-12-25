@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>แผนผังโครงสร้าง HTML5 Semantic Elements</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+    }
+
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 10px;
+      font-size: 2.5em;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #7f8c8d;
+      margin-bottom: 40px;
+      font-size: 1.1em;
+    }
+
+    /* Diagram 1: Overview Structure */
+    .diagram-1 {
+      margin-bottom: 60px;
+    }
+
+    .webpage-structure {
+      border: 3px solid #2c3e50;
+      border-radius: 10px;
+      overflow: hidden;
+      background: #ecf0f1;
+    }
+
+    .semantic-element {
+      padding: 20px;
+      margin: 10px;
+      border-radius: 8px;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+
+    .semantic-element:hover {
+      transform: translateX(5px);
+    }
+
+    .semantic-element::before {
+      content: attr(data-tag);
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      background: rgba(0,0,0,0.7);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.8em;
+      font-family: 'Courier New', monospace;
+    }
+
+    .header-element {
+      background: #3498db;
+      color: white;
+    }
+
+    .nav-element {
+      background: #2ecc71;
+      color: white;
+      margin: 10px 10px 10px 30px;
+    }
+
+    .main-element {
+      background: #e74c3c;
+      color: white;
+      min-height: 300px;
+    }
+
+    .article-element {
+      background: #f39c12;
+      color: white;
+      margin: 10px 30px;
+    }
+
+    .section-element {
+      background: #9b59b6;
+      color: white;
+      margin: 10px 50px;
+    }
+
+    .aside-element {
+      background: #1abc9c;
+      color: white;
+      margin: 10px 30px;
+    }
+
+    .footer-element {
+      background: #34495e;
+      color: white;
+    }
+
+    .element-title {
+      font-weight: bold;
+      font-size: 1.3em;
+      margin-bottom: 5px;
+    }
+
+    .element-desc {
+      font-size: 0.9em;
+      opacity: 0.9;
+    }
+
+    /* Diagram 2: Detailed Article Structure */
+    .diagram-2 {
+      margin-bottom: 60px;
+    }
+
+    .article-detailed {
+      border: 3px solid #f39c12;
+      border-radius: 10px;
+      padding: 20px;
+      background: #fff9e6;
+    }
+
+    .article-header {
+      background: #3498db;
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .article-section {
+      background: #9b59b6;
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .figure-element {
+      background: #e67e22;
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+      margin: 10px 30px;
+    }
+
+    .article-footer {
+      background: #34495e;
+      color: white;
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    /* Diagram 3: Comparison */
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+
+    .comparison-box {
+      border: 3px solid #95a5a6;
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .comparison-box.bad {
+      background: #ffe6e6;
+      border-color: #e74c3c;
+    }
+
+    .comparison-box.good {
+      background: #e6ffe6;
+      border-color: #2ecc71;
+    }
+
+    .comparison-title {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+
+    .comparison-title.bad {
+      color: #e74c3c;
+    }
+
+    .comparison-title.good {
+      color: #2ecc71;
+    }
+
+    .div-structure, .semantic-structure {
+      background: white;
+      padding: 15px;
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+      line-height: 1.8;
+    }
+
+    /* Legend */
+    .legend {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 40px;
+    }
+
+    .legend-title {
+      font-size: 1.3em;
+      font-weight: bold;
+      margin-bottom: 15px;
+      color: #2c3e50;
+    }
+
+    .legend-items {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 15px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .legend-color {
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
+      border: 2px solid #34495e;
+    }
+
+    .legend-text {
+      flex: 1;
+    }
+
+    .legend-tag {
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    /* Tree Diagram */
+    .tree-diagram {
+      margin: 40px 0;
+    }
+
+    .tree {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .tree-node {
+      background: white;
+      border: 2px solid #3498db;
+      border-radius: 8px;
+      padding: 10px 20px;
+      margin: 10px;
+      font-family: 'Courier New', monospace;
+      font-weight: bold;
+      color: #2c3e50;
+      position: relative;
+    }
+
+    .tree-node.body {
+      background: #3498db;
+      color: white;
+    }
+
+    .tree-children {
+      display: flex;
+      gap: 20px;
+      position: relative;
+      margin-top: 20px;
+    }
+
+    .tree-children::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      width: 2px;
+      height: 20px;
+      background: #3498db;
+    }
+
+    .tree-branch {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      position: relative;
+    }
+
+    .tree-branch::before {
+      content: '';
+      position: absolute;
+      top: -20px;
+      left: 50%;
+      width: 2px;
+      height: 20px;
+      background: #3498db;
+    }
+
+    .section-title {
+      font-size: 1.8em;
+      color: #2c3e50;
+      margin: 40px 0 20px 0;
+      padding-bottom: 10px;
+      border-bottom: 3px solid #3498db;
+    }
+
+    @media (max-width: 768px) {
+      .comparison {
+        grid-template-columns: 1fr;
+      }
+
+      .container {
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 1.8em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📐 แผนผังโครงสร้าง HTML5 Semantic Elements</h1>
+    <p class="subtitle">Visual Guide สำหรับการใช้ Semantic HTML อย่างถูกต้อง</p>
+
+    <!-- Diagram 1: Overview Structure -->
+    <h2 class="section-title">1️⃣ โครงสร้างภาพรวมของเว็บเพจ</h2>
+    <div class="diagram-1">
+      <div class="webpage-structure">
+        <div class="semantic-element header-element" data-tag="<header>">
+          <div class="element-title">🏠 Header - ส่วนหัวเว็บไซต์</div>
+          <div class="element-desc">ชื่อเว็บไซต์, โลโก้, ข้อมูลเบื้องต้น</div>
+        </div>
+
+        <div class="semantic-element nav-element" data-tag="<nav>">
+          <div class="element-title">🧭 Navigation - เมนูนำทาง</div>
+          <div class="element-desc">ลิงก์หลักสำหรับนำทางในเว็บไซต์</div>
+        </div>
+
+        <div class="semantic-element main-element" data-tag="<main>">
+          <div class="element-title">📄 Main - เนื้อหาหลัก</div>
+          <div class="element-desc">เนื้อหาหลักของหน้า (ใช้ได้ 1 ครั้ง/หน้า)</div>
+
+          <div class="semantic-element article-element" data-tag="<article>">
+            <div class="element-title">📰 Article - เนื้อหาสมบูรณ์</div>
+            <div class="element-desc">บทความ, โพสต์, ข่าว (สามารถแยกออกไปได้)</div>
+
+            <div class="semantic-element section-element" data-tag="<section>">
+              <div class="element-title">📑 Section - แบ่งส่วนเนื้อหา</div>
+              <div class="element-desc">กลุ่มเนื้อหาที่เกี่ยวข้องกัน (มักมี heading)</div>
+            </div>
+
+            <div class="semantic-element section-element" data-tag="<section>">
+              <div class="element-title">📑 Section - แบ่งส่วนเนื้อหา</div>
+              <div class="element-desc">อีกส่วนหนึ่งของบทความ</div>
+            </div>
+          </div>
+
+          <div class="semantic-element aside-element" data-tag="<aside>">
+            <div class="element-title">📌 Aside - เนื้อหาเสริม</div>
+            <div class="element-desc">Sidebar, โฆษณา, ลิงก์ที่เกี่ยวข้อง</div>
+          </div>
+        </div>
+
+        <div class="semantic-element footer-element" data-tag="<footer>">
+          <div class="element-title">👣 Footer - ส่วนท้าย</div>
+          <div class="element-desc">Copyright, ข้อมูลติดต่อ, ลิงก์ social media</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diagram 2: Detailed Article Structure -->
+    <h2 class="section-title">2️⃣ โครงสร้างภายใน Article (รายละเอียด)</h2>
+    <div class="diagram-2">
+      <div class="article-detailed">
+        <div style="text-align: center; font-weight: bold; font-size: 1.2em; margin-bottom: 20px; color: #f39c12;">
+          &lt;article&gt; - บทความหนึ่งชิ้น
+        </div>
+
+        <div class="article-header">
+          <div class="element-title">📋 &lt;header&gt; - หัวบทความ</div>
+          <div class="element-desc">หัวข้อ, ผู้เขียน, วันที่เผยแพร่</div>
+        </div>
+
+        <div class="article-section">
+          <div class="element-title">📝 &lt;section&gt; - ส่วนที่ 1</div>
+          <div class="element-desc">เนื้อหาส่วนแรกของบทความ</div>
+        </div>
+
+        <div class="article-section">
+          <div class="element-title">📝 &lt;section&gt; - ส่วนที่ 2</div>
+          <div class="element-desc">เนื้อหาส่วนที่สอง</div>
+          
+          <div class="figure-element">
+            <div class="element-title">🖼️ &lt;figure&gt; + &lt;figcaption&gt;</div>
+            <div class="element-desc">รูปภาพประกอบพร้อมคำอธิบาย</div>
+          </div>
+        </div>
+
+        <div class="article-footer">
+          <div class="element-title">🏷️ &lt;footer&gt; - ท้ายบทความ</div>
+          <div class="element-desc">แท็ก, หมวดหมู่, ข้อมูลเพิ่มเติม</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Diagram 3: Comparison -->
+    <h2 class="section-title">3️⃣ เปรียบเทียบ: ไม่ใช้ Semantic vs ใช้ Semantic</h2>
+    <div class="comparison">
+      <div class="comparison-box bad">
+        <div class="comparison-title bad">❌ ไม่ดี: ใช้ &lt;div&gt; ทั้งหมด</div>
+        <div class="div-structure">
+&lt;div id="header"&gt;<br>
+&nbsp;&nbsp;&lt;div id="nav"&gt;...&lt;/div&gt;<br>
+&lt;/div&gt;<br>
+&lt;div id="content"&gt;<br>
+&nbsp;&nbsp;&lt;div class="post"&gt;...&lt;/div&gt;<br>
+&lt;/div&gt;<br>
+&lt;div id="footer"&gt;...&lt;/div&gt;<br>
+<br>
+<strong style="color: #e74c3c;">ปัญหา:</strong><br>
+• ไม่บอกความหมาย<br>
+• SEO ไม่ดี<br>
+• Accessibility ต่ำ<br>
+• อ่าน Code ยาก
+        </div>
+      </div>
+
+      <div class="comparison-box good">
+        <div class="comparison-title good">✅ ดี: ใช้ Semantic Elements</div>
+        <div class="semantic-structure">
+&lt;header&gt;<br>
+&nbsp;&nbsp;&lt;nav&gt;...&lt;/nav&gt;<br>
+&lt;/header&gt;<br>
+&lt;main&gt;<br>
+&nbsp;&nbsp;&lt;article&gt;...&lt;/article&gt;<br>
+&lt;/main&gt;<br>
+&lt;footer&gt;...&lt;/footer&gt;<br>
+<br>
+<strong style="color: #2ecc71;">ข้อดี:</strong><br>
+• บอกความหมายชัดเจน<br>
+• SEO ดีขึ้น<br>
+• Accessibility สูง<br>
+• อ่าน Code ง่าย
+        </div>
+      </div>
+    </div>
+
+    <!-- Tree Diagram -->
+    <h2 class="section-title">4️⃣ แผนผังแบบ Tree (โครงสร้างลำดับชั้น)</h2>
+    <div class="tree-diagram">
+      <div class="tree">
+        <div class="tree-node body">&lt;body&gt;</div>
+        <div class="tree-children">
+          <div class="tree-branch">
+            <div class="tree-node">&lt;header&gt;</div>
+            <div class="tree-children" style="flex-direction: column;">
+              <div class="tree-node">&lt;nav&gt;</div>
+            </div>
+          </div>
+          <div class="tree-branch">
+            <div class="tree-node">&lt;main&gt;</div>
+            <div class="tree-children">
+              <div class="tree-branch">
+                <div class="tree-node">&lt;article&gt;</div>
+                <div class="tree-children" style="flex-direction: column; gap: 10px;">
+                  <div class="tree-node">&lt;section&gt;</div>
+                  <div class="tree-node">&lt;section&gt;</div>
+                </div>
+              </div>
+              <div class="tree-node">&lt;aside&gt;</div>
+            </div>
+          </div>
+          <div class="tree-branch">
+            <div class="tree-node">&lt;footer&gt;</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Legend -->
+    <div class="legend">
+      <div class="legend-title">🎨 คำอธิบายสีและความหมาย</div>
+      <div class="legend-items">
+        <div class="legend-item">
+          <div class="legend-color" style="background: #3498db;"></div>
+          <div class="legend-text">
+            <div class="legend-tag">&lt;header&gt;</div>
+            ส่วนหัว - Logo, ชื่อเว็บ
+          </div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: #2ecc71;"></div>
+          <div class="legend-text">
+            <div class="legend-tag">&lt;nav&gt;</div>
+            เมนูนำทาง - Links หลัก
+          </div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: #e74c3c;"></div>
+          <div class="legend-text">
+            <div class="legend-tag">&lt;main&gt;</div>
+            เนื้อหาหลัก - ใช้ 1 ครั้ง/หน้า
+          </div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: #f39c12;"></div>
+          <div class="legend-text">
+            <div class="legend-tag">&lt;article&gt;</div>
+            เนื้อหาสมบูรณ์ - บทความ, โพสต์
+          </div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: #9b59b6;"></div>
+          <div class="legend-text">
+            <div class="legend-tag">&lt;section&gt;</div>
+            แบ่งส่วน - กลุ่มเนื้อหา
+          </div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: #1abc9c;"></div>
+          <div class="legend-text">
+            <div class="legend-tag">&lt;aside&gt;</div>
+            เนื้อหาเสริม - Sidebar, โฆษณา
+          </div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: #34495e;"></div>
+          <div class="legend-text">
+            <div class="legend-tag">&lt;footer&gt;</div>
+            ส่วนท้าย - Copyright, ติดต่อ
+          </div>
+        </div>
+        <div class="legend-item">
+          <div class="legend-color" style="background: #e67e22;"></div>
+          <div class="legend-text">
+            <div class="legend-tag">&lt;figure&gt;</div>
+            รูปภาพ + คำอธิบาย
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    <div style="background: #fff3cd; padding: 20px; border-radius: 10px; border-left: 5px solid #ffc107; margin-top: 40px;">
+      <h3 style="color: #856404; margin-bottom: 10px;">💡 สรุปสำคัญ</h3>
+      <ul style="color: #856404; margin-left: 20px; line-height: 2;">
+        <li><strong>&lt;header&gt;</strong> = หัวเว็บหรือหัวบทความ</li>
+        <li><strong>&lt;nav&gt;</strong> = เมนูนำทางหลัก</li>
+        <li><strong>&lt;main&gt;</strong> = เนื้อหาหลัก (1 ครั้ง/หน้า)</li>
+        <li><strong>&lt;article&gt;</strong> = เนื้อหาที่สมบูรณ์ในตัวเอง</li>
+        <li><strong>&lt;section&gt;</strong> = แบ่งส่วนเนื้อหา (ควรมี heading)</li>
+        <li><strong>&lt;aside&gt;</strong> = เนื้อหาเสริม/Sidebar</li>
+        <li><strong>&lt;footer&gt;</strong> = ส่วนท้าย</li>
+      </ul>
+    </div>
+
+    <div style="text-align: center; margin-top: 40px; color: #7f8c8d;">
+      <p>📚 สร้างโดย: วิชาการพัฒนาโปรแกรมประยุกต์บนเว็บขั้นต้น</p>
+      <p>สัปดาห์ที่ 2: HTML5 Semantic Elements & Forms</p>
+    </div>
+  </div>
+</body>
+</html>

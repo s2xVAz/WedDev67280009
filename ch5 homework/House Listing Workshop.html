@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>House Listing Workshop</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600&family=Krub:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #e63946;
+            --secondary-color: #1d3557;
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-main: #2c3e50;
+            --text-light: #7f8c8d;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            font-family: 'Krub', sans-serif;
+            color: var(--text-main);
+            padding-bottom: 50px;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: 'Kanit', sans-serif;
+        }
+
+        header {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: #fff;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            color: var(--secondary-color);
+        }
+
+
+        .listing-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px;
+            justify-content: center;
+        }
+
+        .house-card {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+            flex: 0 1 320px;
+
+            position: relative;
+        }
+
+        .house-card:hover {
+            transform: translateY(-8px);
+        }
+
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+
+            background-color: var(--primary-color);
+            color: white;
+            padding: 4px 15px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            z-index: 10;
+        }
+
+        .badge.townhome {
+            background-color: #118ab2;
+        }
+
+        .badge.condo {
+            background-color: #06d6a0;
+        }
+
+
+        .card-image-container {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .card-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .price {
+            font-family: 'Kanit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .location {
+            font-size: 0.9rem;
+            color: var(--text-light);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 15px 0;
+        }
+
+
+        .specs {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--text-main);
+        }
+
+        .spec-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        @media (max-width: 600px) {
+            .house-card {
+                flex: 1 1 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>🏡 ประกาศขายบ้านล่าสุด 2025</h1>
+    </header>
+
+    <div class="listing-container">
+
+        <div class="house-card">
+            <span class="badge">บ้านเดี่ยว</span>
+            <div class="card-image-container">
+                <img src="https://cdn.pixabay.com/photo/2014/05/01/03/02/thatched-roof-335237_1280.jpg" alt="House 1">
+            </div>
+            <div class="card-content">
+                <span class="price">฿ 3,600,000</span>
+                <div class="location">📍 หมู่บ้านสิริเพลส, บางนา</div>
+
+                <div class="divider"></div>
+
+                <div class="specs">
+                    <div class="spec-item">🛏️ 2 นอน</div>
+                    <div class="spec-item">🚿 1 น้ำ</div>
+                    <div class="spec-item">🚗 1 จอด</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="house-card">
+            <span class="badge townhome">ทาวน์โฮม</span>
+            <div class="card-image-container">
+                <img src="https://plus.unsplash.com/premium_photo-1742446807137-ba623fdf2f7c?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="House 2">
+            </div>
+            <div class="card-content">
+                <span class="price">฿ 5,900,000</span>
+                <div class="location">📍 พลีโน่, รามอินทรา</div>
+
+                <div class="divider"></div>
+
+                <div class="specs">
+                    <div class="spec-item">🛏️ 4 นอน</div>
+                    <div class="spec-item">🚿 3 น้ำ</div>
+                    <div class="spec-item">🚗 2 จอด</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="house-card">
+            <span class="badge condo">คอนโดมิเนียม</span>
+            <div class="card-image-container">
+                <img src="https://images.unsplash.com/photo-1638973140785-3b918e290682?q=80&w=689&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                    alt="House 3">
+            </div>
+            <div class="card-content">
+                <span class="price">฿ 980,000</span>
+                <div class="location">📍 ไอดีโอ, พระราม 9</div>
+
+                <div class="divider"></div>
+
+                <div class="specs">
+                    <div class="spec-item">🛏️ 1 นอน</div>
+                    <div class="spec-item">🚿 1 น้ำ</div>
+                    <div class="spec-item">📐 35 ตร.ม.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="house-card">
+            <span class="badge">บ้านเดี่ยว</span>
+            <div class="card-image-container">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800&auto=format&fit=crop"
+                    alt="House 4">
+            </div>
+            <div class="card-content">
+                <span class="price">฿ 21,850,000</span>
+                <div class="location">📍 เศรษฐสิริ, ราชพฤกษ์</div>
+
+                <div class="divider"></div>
+
+                <div class="specs">
+                    <div class="spec-item">🛏️ 4 นอน</div>
+                    <div class="spec-item">🚿 4 น้ำ</div>
+                    <div class="spec-item">🚗 3 จอด</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+
+</html>

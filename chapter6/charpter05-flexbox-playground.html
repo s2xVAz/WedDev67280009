@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🎮 Flexbox Playground - เรียนรู้ Flexbox แบบ Interactive</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --bg-dark: #0f0f23;
+      --bg-card: #1a1a2e;
+      --bg-section: #16213e;
+      --accent-primary: #00d4ff;
+      --accent-secondary: #ff6b6b;
+      --accent-success: #2ecc71;
+      --accent-warning: #f39c12;
+      --accent-purple: #a855f7;
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8;
+      --border-color: #334155;
+    }
+
+    body {
+      font-family: 'Sarabun', sans-serif;
+      background: var(--bg-dark);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 40px 20px;
+      background: linear-gradient(135deg, var(--bg-section) 0%, var(--bg-card) 100%);
+      border-radius: 20px;
+      margin-bottom: 30px;
+      border: 1px solid var(--border-color);
+    }
+
+    .header h1 {
+      font-size: 2.5em;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+
+    .header p {
+      color: var(--text-secondary);
+      font-size: 1.2em;
+    }
+
+    /* Main Layout */
+    .main-layout {
+      display: grid;
+      grid-template-columns: 350px 1fr;
+      gap: 30px;
+    }
+
+    @media (max-width: 1200px) {
+      .main-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Control Panel */
+    .control-panel {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 25px;
+      border: 1px solid var(--border-color);
+      height: fit-content;
+      position: sticky;
+      top: 20px;
+    }
+
+    .panel-title {
+      font-size: 1.3em;
+      font-weight: 700;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .control-section {
+      margin-bottom: 25px;
+      padding-bottom: 25px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .control-section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .section-header h3 {
+      font-size: 1.1em;
+      color: var(--accent-primary);
+    }
+
+    .section-header .badge {
+      background: var(--accent-primary);
+      color: var(--bg-dark);
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 0.7em;
+      font-weight: 700;
+    }
+
+    .control-group {
+      margin-bottom: 15px;
+    }
+
+    .control-group label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--text-secondary);
+      font-size: 0.9em;
+    }
+
+    .control-group select,
+    .control-group input[type="range"] {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      background: var(--bg-section);
+      color: var(--text-primary);
+      font-size: 0.95em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .control-group select:hover,
+    .control-group select:focus {
+      border-color: var(--accent-primary);
+      outline: none;
+    }
+
+    .control-group input[type="range"] {
+      -webkit-appearance: none;
+      height: 8px;
+      padding: 0;
+    }
+
+    .control-group input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--accent-primary);
+      cursor: pointer;
+    }
+
+    .value-display {
+      text-align: center;
+      color: var(--accent-primary);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9em;
+      margin-top: 5px;
+    }
+
+    /* Preview Area */
+    .preview-area {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .preview-container {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 25px;
+      border: 1px solid var(--border-color);
+    }
+
+    .preview-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+
+    .preview-header h2 {
+      font-size: 1.3em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .item-controls {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: none;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-size: 0.9em;
+    }
+
+    .btn-add {
+      background: var(--accent-success);
+      color: white;
+    }
+
+    .btn-remove {
+      background: var(--accent-secondary);
+      color: white;
+    }
+
+    .btn-reset {
+      background: var(--accent-warning);
+      color: white;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Flex Container Demo */
+    .flex-demo-wrapper {
+      background: var(--bg-section);
+      border-radius: 12px;
+      padding: 20px;
+      min-height: 350px;
+      border: 2px dashed var(--border-color);
+      position: relative;
+    }
+
+    .flex-demo-wrapper::before {
+      content: 'Flex Container';
+      position: absolute;
+      top: -12px;
+      left: 20px;
+      background: var(--bg-section);
+      padding: 0 10px;
+      color: var(--accent-purple);
+      font-size: 0.85em;
+      font-weight: 600;
+    }
+
+    .flex-container {
+      display: flex;
+      min-height: 300px;
+      gap: 10px;
+      padding: 15px;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 10px,
+        rgba(255,255,255,0.02) 10px,
+        rgba(255,255,255,0.02) 20px
+      );
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .flex-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.2em;
+      border-radius: 10px;
+      min-width: 60px;
+      min-height: 60px;
+      padding: 15px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .flex-item:hover {
+      transform: scale(1.05);
+      z-index: 10;
+    }
+
+    .flex-item.selected {
+      box-shadow: 0 0 0 3px var(--accent-primary);
+    }
+
+    .flex-item:nth-child(1) { background: linear-gradient(135deg, #ff6b6b, #ee5a5a); }
+    .flex-item:nth-child(2) { background: linear-gradient(135deg, #4ecdc4, #44a08d); }
+    .flex-item:nth-child(3) { background: linear-gradient(135deg, #45b7d1, #2980b9); }
+    .flex-item:nth-child(4) { background: linear-gradient(135deg, #96ceb4, #7ab89a); }
+    .flex-item:nth-child(5) { background: linear-gradient(135deg, #dda0dd, #c48bc4); }
+    .flex-item:nth-child(6) { background: linear-gradient(135deg, #f39c12, #d68910); }
+    .flex-item:nth-child(7) { background: linear-gradient(135deg, #9b59b6, #8e44ad); }
+    .flex-item:nth-child(8) { background: linear-gradient(135deg, #1abc9c, #16a085); }
+
+    /* Code Display */
+    .code-container {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 25px;
+      border: 1px solid var(--border-color);
+    }
+
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .code-header h2 {
+      font-size: 1.3em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .copy-btn {
+      background: var(--bg-section);
+      border: 1px solid var(--border-color);
+      color: var(--text-primary);
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .copy-btn:hover {
+      border-color: var(--accent-primary);
+      color: var(--accent-primary);
+    }
+
+    .code-display {
+      background: #0d1117;
+      border-radius: 12px;
+      padding: 20px;
+      font-family: 'Fira Code', monospace;
+      font-size: 0.9em;
+      overflow-x: auto;
+      line-height: 1.8;
+    }
+
+    .code-line {
+      margin: 3px 0;
+    }
+
+    .code-selector {
+      color: #ff79c6;
+    }
+
+    .code-property {
+      color: #8be9fd;
+    }
+
+    .code-value {
+      color: #50fa7b;
+    }
+
+    .code-comment {
+      color: #6272a4;
+      font-style: italic;
+    }
+
+    .code-bracket {
+      color: #f8f8f2;
+    }
+
+    /* Item Properties Panel */
+    .item-properties {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 25px;
+      border: 1px solid var(--border-color);
+    }
+
+    .item-properties h2 {
+      font-size: 1.3em;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .item-props-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .item-prop-card {
+      background: var(--bg-section);
+      border-radius: 12px;
+      padding: 15px;
+      border: 1px solid var(--border-color);
+    }
+
+    .item-prop-card h4 {
+      color: var(--accent-warning);
+      margin-bottom: 10px;
+      font-size: 0.95em;
+    }
+
+    .slider-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .slider-container input {
+      flex: 1;
+    }
+
+    .slider-value {
+      min-width: 40px;
+      text-align: center;
+      font-family: 'Fira Code', monospace;
+      color: var(--accent-primary);
+    }
+
+    /* Explanation Cards */
+    .explanation-section {
+      margin-top: 30px;
+    }
+
+    .explanation-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .explain-card {
+      background: var(--bg-card);
+      border-radius: 16px;
+      padding: 25px;
+      border: 1px solid var(--border-color);
+      transition: all 0.3s ease;
+    }
+
+    .explain-card:hover {
+      border-color: var(--accent-primary);
+      transform: translateY(-5px);
+    }
+
+    .explain-card h3 {
+      color: var(--accent-primary);
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .explain-card p {
+      color: var(--text-secondary);
+      font-size: 0.95em;
+      margin-bottom: 15px;
+    }
+
+    .property-list {
+      list-style: none;
+    }
+
+    .property-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .property-list li:last-child {
+      border-bottom: none;
+    }
+
+    .property-list code {
+      color: var(--accent-success);
+      font-family: 'Fira Code', monospace;
+      font-size: 0.85em;
+    }
+
+    .property-list .desc {
+      color: var(--text-secondary);
+      font-size: 0.85em;
+    }
+
+    /* Axis Indicator */
+    .axis-indicator {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      background: rgba(0,0,0,0.7);
+      padding: 10px 15px;
+      border-radius: 8px;
+      font-size: 0.8em;
+    }
+
+    .axis-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 3px 0;
+    }
+
+    .axis-row .arrow {
+      font-size: 1.2em;
+    }
+
+    .main-axis {
+      color: var(--accent-secondary);
+    }
+
+    .cross-axis {
+      color: var(--accent-success);
+    }
+
+    /* Animation */
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+
+    .active-property {
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .header h1 {
+        font-size: 1.8em;
+      }
+      
+      .main-layout {
+        grid-template-columns: 1fr;
+      }
+      
+      .control-panel {
+        position: relative;
+        top: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <h1>🎮 Flexbox Playground</h1>
+      <p>เรียนรู้ CSS Flexbox แบบ Interactive - ลองปรับค่าและดูผลลัพธ์ทันที!</p>
+    </header>
+
+    <div class="main-layout">
+      <!-- Control Panel -->
+      <aside class="control-panel">
+        <div class="panel-title">
+          ⚙️ Container Properties
+        </div>
+
+        <!-- display: flex -->
+        <div class="control-section">
+          <div class="section-header">
+            <h3>display</h3>
+            <span class="badge">เปิด/ปิด</span>
+          </div>
+          <div class="control-group">
+            <label>เลือกค่า display:</label>
+            <select id="display">
+              <option value="flex">flex ✨</option>
+              <option value="inline-flex">inline-flex</option>
+              <option value="block">block (ปิด Flexbox)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- flex-direction -->
+        <div class="control-section">
+          <div class="section-header">
+            <h3>flex-direction</h3>
+            <span class="badge">ทิศทาง</span>
+          </div>
+          <div class="control-group">
+            <label>กำหนดทิศทาง Main Axis:</label>
+            <select id="flexDirection">
+              <option value="row">row → (ซ้าย→ขวา)</option>
+              <option value="row-reverse">row-reverse ← (ขวา→ซ้าย)</option>
+              <option value="column">column ↓ (บน→ล่าง)</option>
+              <option value="column-reverse">column-reverse ↑ (ล่าง→บน)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- justify-content -->
+        <div class="control-section">
+          <div class="section-header">
+            <h3>justify-content</h3>
+            <span class="badge">Main Axis</span>
+          </div>
+          <div class="control-group">
+            <label>จัดตำแหน่งตามแนวหลัก:</label>
+            <select id="justifyContent">
+              <option value="flex-start">flex-start (เริ่มต้น)</option>
+              <option value="flex-end">flex-end (ท้ายสุด)</option>
+              <option value="center">center (กึ่งกลาง)</option>
+              <option value="space-between">space-between (กระจายชิดขอบ)</option>
+              <option value="space-around">space-around (กระจายมีขอบ)</option>
+              <option value="space-evenly">space-evenly (กระจายเท่ากัน)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- align-items -->
+        <div class="control-section">
+          <div class="section-header">
+            <h3>align-items</h3>
+            <span class="badge">Cross Axis</span>
+          </div>
+          <div class="control-group">
+            <label>จัดตำแหน่งตามแนวตั้งฉาก:</label>
+            <select id="alignItems">
+              <option value="stretch">stretch (ยืดเต็ม)</option>
+              <option value="flex-start">flex-start (เริ่มต้น)</option>
+              <option value="flex-end">flex-end (ท้ายสุด)</option>
+              <option value="center">center (กึ่งกลาง)</option>
+              <option value="baseline">baseline (แนว baseline)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- flex-wrap -->
+        <div class="control-section">
+          <div class="section-header">
+            <h3>flex-wrap</h3>
+            <span class="badge">ตัดบรรทัด</span>
+          </div>
+          <div class="control-group">
+            <label>จัดการเมื่อ items เต็ม:</label>
+            <select id="flexWrap">
+              <option value="nowrap">nowrap (ไม่ตัด - บีบอัด)</option>
+              <option value="wrap">wrap (ตัดไปบรรทัดใหม่)</option>
+              <option value="wrap-reverse">wrap-reverse (ตัดสลับทิศ)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- gap -->
+        <div class="control-section">
+          <div class="section-header">
+            <h3>gap</h3>
+            <span class="badge">ระยะห่าง</span>
+          </div>
+          <div class="control-group">
+            <label>ระยะห่างระหว่าง items:</label>
+            <input type="range" id="gap" min="0" max="40" value="10">
+            <div class="value-display" id="gapValue">10px</div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Preview Area -->
+      <main class="preview-area">
+        <!-- Flex Container Preview -->
+        <div class="preview-container">
+          <div class="preview-header">
+            <h2>📦 Preview - ผลลัพธ์</h2>
+            <div class="item-controls">
+              <button class="btn btn-add" onclick="addItem()">+ เพิ่ม Item</button>
+              <button class="btn btn-remove" onclick="removeItem()">- ลบ Item</button>
+              <button class="btn btn-reset" onclick="resetItems()">🔄 รีเซ็ต</button>
+            </div>
+          </div>
+          
+          <div class="flex-demo-wrapper">
+            <div class="flex-container" id="flexContainer">
+              <div class="flex-item" onclick="selectItem(this, 0)">1</div>
+              <div class="flex-item" onclick="selectItem(this, 1)">2</div>
+              <div class="flex-item" onclick="selectItem(this, 2)">3</div>
+              <div class="flex-item" onclick="selectItem(this, 3)">4</div>
+            </div>
+            
+            <div class="axis-indicator" id="axisIndicator">
+              <div class="axis-row main-axis">
+                <span class="arrow">→</span> Main Axis
+              </div>
+              <div class="axis-row cross-axis">
+                <span class="arrow">↓</span> Cross Axis
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item Properties -->
+        <div class="item-properties">
+          <h2>🎯 Flex Item Properties <span style="color: var(--text-secondary); font-size: 0.8em;">(คลิกเลือก Item ก่อน)</span></h2>
+          <div class="item-props-grid">
+            <div class="item-prop-card">
+              <h4>flex-grow</h4>
+              <p style="color: var(--text-secondary); font-size: 0.85em; margin-bottom: 10px;">ขยายตัวเมื่อมีพื้นที่เหลือ</p>
+              <div class="slider-container">
+                <input type="range" id="flexGrow" min="0" max="5" value="0" onchange="updateItemProperty('flexGrow', this.value)">
+                <span class="slider-value" id="flexGrowValue">0</span>
+              </div>
+            </div>
+            
+            <div class="item-prop-card">
+              <h4>flex-shrink</h4>
+              <p style="color: var(--text-secondary); font-size: 0.85em; margin-bottom: 10px;">หดตัวเมื่อพื้นที่ไม่พอ</p>
+              <div class="slider-container">
+                <input type="range" id="flexShrink" min="0" max="5" value="1" onchange="updateItemProperty('flexShrink', this.value)">
+                <span class="slider-value" id="flexShrinkValue">1</span>
+              </div>
+            </div>
+            
+            <div class="item-prop-card">
+              <h4>flex-basis</h4>
+              <p style="color: var(--text-secondary); font-size: 0.85em; margin-bottom: 10px;">ขนาดเริ่มต้น</p>
+              <div class="slider-container">
+                <input type="range" id="flexBasis" min="0" max="200" value="0" onchange="updateItemProperty('flexBasis', this.value)">
+                <span class="slider-value" id="flexBasisValue">auto</span>
+              </div>
+            </div>
+
+            <div class="item-prop-card">
+              <h4>order</h4>
+              <p style="color: var(--text-secondary); font-size: 0.85em; margin-bottom: 10px;">ลำดับการแสดง</p>
+              <div class="slider-container">
+                <input type="range" id="order" min="-3" max="3" value="0" onchange="updateItemProperty('order', this.value)">
+                <span class="slider-value" id="orderValue">0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Generated Code -->
+        <div class="code-container">
+          <div class="code-header">
+            <h2>💻 Generated CSS Code</h2>
+            <button class="copy-btn" onclick="copyCode()">📋 คัดลอก</button>
+          </div>
+          <div class="code-display" id="codeDisplay">
+            <!-- Code will be generated here -->
+          </div>
+        </div>
+
+        <!-- Explanation Cards -->
+        <div class="explanation-section">
+          <div class="explanation-grid">
+            <div class="explain-card">
+              <h3>📐 flex-direction</h3>
+              <p>กำหนดทิศทางของ Main Axis (แกนหลัก) ที่ items จะเรียงตัว</p>
+              <ul class="property-list">
+                <li><code>row</code> <span class="desc">→ ซ้ายไปขวา (ค่าเริ่มต้น)</span></li>
+                <li><code>row-reverse</code> <span class="desc">← ขวาไปซ้าย</span></li>
+                <li><code>column</code> <span class="desc">↓ บนลงล่าง</span></li>
+                <li><code>column-reverse</code> <span class="desc">↑ ล่างขึ้นบน</span></li>
+              </ul>
+            </div>
+
+            <div class="explain-card">
+              <h3>↔️ justify-content</h3>
+              <p>จัดตำแหน่ง items ตาม Main Axis (แกนหลัก)</p>
+              <ul class="property-list">
+                <li><code>flex-start</code> <span class="desc">ชิดจุดเริ่มต้น</span></li>
+                <li><code>center</code> <span class="desc">อยู่กึ่งกลาง</span></li>
+                <li><code>space-between</code> <span class="desc">กระจายชิดขอบ</span></li>
+                <li><code>space-evenly</code> <span class="desc">กระจายเว้นเท่ากัน</span></li>
+              </ul>
+            </div>
+
+            <div class="explain-card">
+              <h3>↕️ align-items</h3>
+              <p>จัดตำแหน่ง items ตาม Cross Axis (แกนตั้งฉาก)</p>
+              <ul class="property-list">
+                <li><code>stretch</code> <span class="desc">ยืดเต็มความสูง</span></li>
+                <li><code>flex-start</code> <span class="desc">ชิดขอบบน</span></li>
+                <li><code>center</code> <span class="desc">อยู่กึ่งกลาง</span></li>
+                <li><code>flex-end</code> <span class="desc">ชิดขอบล่าง</span></li>
+              </ul>
+            </div>
+
+            <div class="explain-card">
+              <h3>📏 flex-grow / shrink / basis</h3>
+              <p>ควบคุมการขยาย/หด ของแต่ละ item</p>
+              <ul class="property-list">
+                <li><code>flex-grow</code> <span class="desc">อัตราขยายเมื่อเหลือที่</span></li>
+                <li><code>flex-shrink</code> <span class="desc">อัตราหดเมื่อแน่น</span></li>
+                <li><code>flex-basis</code> <span class="desc">ขนาดเริ่มต้น</span></li>
+                <li><code>flex: 1</code> <span class="desc">= grow:1 shrink:1 basis:0</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // State
+    let itemCount = 4;
+    let selectedItemIndex = null;
+    let itemProperties = {};
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+      initializeItemProperties();
+      attachEventListeners();
+      updateDisplay();
+      updateCode();
+    });
+
+    function initializeItemProperties() {
+      for (let i = 0; i < 8; i++) {
+        itemProperties[i] = {
+          flexGrow: 0,
+          flexShrink: 1,
+          flexBasis: 'auto',
+          order: 0
+        };
+      }
+    }
+
+    function attachEventListeners() {
+      const controls = ['display', 'flexDirection', 'justifyContent', 'alignItems', 'flexWrap', 'gap'];
+      controls.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.addEventListener('change', updateDisplay);
+          element.addEventListener('input', updateDisplay);
+        }
+      });
+    }
+
+    function updateDisplay() {
+      const container = document.getElementById('flexContainer');
+      const display = document.getElementById('display').value;
+      const flexDirection = document.getElementById('flexDirection').value;
+      const justifyContent = document.getElementById('justifyContent').value;
+      const alignItems = document.getElementById('alignItems').value;
+      const flexWrap = document.getElementById('flexWrap').value;
+      const gap = document.getElementById('gap').value;
+
+      // Update container styles
+      container.style.display = display;
+      container.style.flexDirection = flexDirection;
+      container.style.justifyContent = justifyContent;
+      container.style.alignItems = alignItems;
+      container.style.flexWrap = flexWrap;
+      container.style.gap = gap + 'px';
+
+      // Update gap display
+      document.getElementById('gapValue').textContent = gap + 'px';
+
+      // Update axis indicator
+      updateAxisIndicator(flexDirection);
+
+      // Update code
+      updateCode();
+    }
+
+    function updateAxisIndicator(direction) {
+      const indicator = document.getElementById('axisIndicator');
+      let mainArrow, crossArrow;
+
+      switch(direction) {
+        case 'row':
+          mainArrow = '→';
+          crossArrow = '↓';
+          break;
+        case 'row-reverse':
+          mainArrow = '←';
+          crossArrow = '↓';
+          break;
+        case 'column':
+          mainArrow = '↓';
+          crossArrow = '→';
+          break;
+        case 'column-reverse':
+          mainArrow = '↑';
+          crossArrow = '→';
+          break;
+      }
+
+      indicator.innerHTML = `
+        <div class="axis-row main-axis">
+          <span class="arrow">${mainArrow}</span> Main Axis
+        </div>
+        <div class="axis-row cross-axis">
+          <span class="arrow">${crossArrow}</span> Cross Axis
+        </div>
+      `;
+    }
+
+    function updateCode() {
+      const display = document.getElementById('display').value;
+      const flexDirection = document.getElementById('flexDirection').value;
+      const justifyContent = document.getElementById('justifyContent').value;
+      const alignItems = document.getElementById('alignItems').value;
+      const flexWrap = document.getElementById('flexWrap').value;
+      const gap = document.getElementById('gap').value;
+
+      let code = `<span class="code-comment">/* 📦 Flex Container */</span>\n`;
+      code += `<span class="code-selector">.flex-container</span> <span class="code-bracket">{</span>\n`;
+      code += `  <span class="code-property">display</span>: <span class="code-value">${display}</span>; <span class="code-comment">/* เปิดใช้ Flexbox */</span>\n`;
+      
+      if (flexDirection !== 'row') {
+        code += `  <span class="code-property">flex-direction</span>: <span class="code-value">${flexDirection}</span>; <span class="code-comment">/* ทิศทาง */</span>\n`;
+      }
+      
+      if (justifyContent !== 'flex-start') {
+        code += `  <span class="code-property">justify-content</span>: <span class="code-value">${justifyContent}</span>; <span class="code-comment">/* จัดแนวหลัก */</span>\n`;
+      }
+      
+      if (alignItems !== 'stretch') {
+        code += `  <span class="code-property">align-items</span>: <span class="code-value">${alignItems}</span>; <span class="code-comment">/* จัดแนวตั้งฉาก */</span>\n`;
+      }
+      
+      if (flexWrap !== 'nowrap') {
+        code += `  <span class="code-property">flex-wrap</span>: <span class="code-value">${flexWrap}</span>; <span class="code-comment">/* ตัดบรรทัด */</span>\n`;
+      }
+      
+      if (gap !== '0') {
+        code += `  <span class="code-property">gap</span>: <span class="code-value">${gap}px</span>; <span class="code-comment">/* ระยะห่าง */</span>\n`;
+      }
+      
+      code += `<span class="code-bracket">}</span>`;
+
+      // Add selected item code if any
+      if (selectedItemIndex !== null && itemProperties[selectedItemIndex]) {
+        const props = itemProperties[selectedItemIndex];
+        const hasCustomProps = props.flexGrow !== 0 || props.flexShrink !== 1 || 
+                              props.flexBasis !== 'auto' || props.order !== 0;
+        
+        if (hasCustomProps) {
+          code += `\n\n<span class="code-comment">/* 🎯 Flex Item #${selectedItemIndex + 1} */</span>\n`;
+          code += `<span class="code-selector">.flex-item:nth-child(${selectedItemIndex + 1})</span> <span class="code-bracket">{</span>\n`;
+          
+          if (props.flexGrow !== 0) {
+            code += `  <span class="code-property">flex-grow</span>: <span class="code-value">${props.flexGrow}</span>; <span class="code-comment">/* ขยายตัว */</span>\n`;
+          }
+          if (props.flexShrink !== 1) {
+            code += `  <span class="code-property">flex-shrink</span>: <span class="code-value">${props.flexShrink}</span>; <span class="code-comment">/* หดตัว */</span>\n`;
+          }
+          if (props.flexBasis !== 'auto') {
+            code += `  <span class="code-property">flex-basis</span>: <span class="code-value">${props.flexBasis}px</span>; <span class="code-comment">/* ขนาดเริ่มต้น */</span>\n`;
+          }
+          if (props.order !== 0) {
+            code += `  <span class="code-property">order</span>: <span class="code-value">${props.order}</span>; <span class="code-comment">/* ลำดับ */</span>\n`;
+          }
+          
+          code += `<span class="code-bracket">}</span>`;
+        }
+      }
+
+      document.getElementById('codeDisplay').innerHTML = code;
+    }
+
+    function addItem() {
+      if (itemCount >= 8) {
+        alert('เพิ่มได้สูงสุด 8 items');
+        return;
+      }
+      itemCount++;
+      const container = document.getElementById('flexContainer');
+      const newItem = document.createElement('div');
+      newItem.className = 'flex-item';
+      newItem.textContent = itemCount;
+      newItem.onclick = function() { selectItem(this, itemCount - 1); };
+      container.appendChild(newItem);
+      updateDisplay();
+    }
+
+    function removeItem() {
+      if (itemCount <= 1) {
+        alert('ต้องมีอย่างน้อย 1 item');
+        return;
+      }
+      const container = document.getElementById('flexContainer');
+      container.removeChild(container.lastChild);
+      itemCount--;
+      if (selectedItemIndex >= itemCount) {
+        selectedItemIndex = null;
+        clearItemSelection();
+      }
+      updateDisplay();
+    }
+
+    function resetItems() {
+      const container = document.getElementById('flexContainer');
+      container.innerHTML = '';
+      itemCount = 4;
+      selectedItemIndex = null;
+      initializeItemProperties();
+      
+      for (let i = 1; i <= 4; i++) {
+        const item = document.createElement('div');
+        item.className = 'flex-item';
+        item.textContent = i;
+        item.onclick = function() { selectItem(this, i - 1); };
+        container.appendChild(item);
+      }
+      
+      // Reset controls
+      document.getElementById('display').value = 'flex';
+      document.getElementById('flexDirection').value = 'row';
+      document.getElementById('justifyContent').value = 'flex-start';
+      document.getElementById('alignItems').value = 'stretch';
+      document.getElementById('flexWrap').value = 'nowrap';
+      document.getElementById('gap').value = '10';
+      
+      // Reset item property sliders
+      document.getElementById('flexGrow').value = 0;
+      document.getElementById('flexShrink').value = 1;
+      document.getElementById('flexBasis').value = 0;
+      document.getElementById('order').value = 0;
+      document.getElementById('flexGrowValue').textContent = '0';
+      document.getElementById('flexShrinkValue').textContent = '1';
+      document.getElementById('flexBasisValue').textContent = 'auto';
+      document.getElementById('orderValue').textContent = '0';
+      
+      updateDisplay();
+    }
+
+    function selectItem(element, index) {
+      // Clear previous selection
+      document.querySelectorAll('.flex-item').forEach(item => {
+        item.classList.remove('selected');
+      });
+      
+      element.classList.add('selected');
+      selectedItemIndex = index;
+      
+      // Update sliders with current item properties
+      const props = itemProperties[index] || { flexGrow: 0, flexShrink: 1, flexBasis: 'auto', order: 0 };
+      
+      document.getElementById('flexGrow').value = props.flexGrow;
+      document.getElementById('flexShrink').value = props.flexShrink;
+      document.getElementById('flexBasis').value = props.flexBasis === 'auto' ? 0 : props.flexBasis;
+      document.getElementById('order').value = props.order;
+      
+      document.getElementById('flexGrowValue').textContent = props.flexGrow;
+      document.getElementById('flexShrinkValue').textContent = props.flexShrink;
+      document.getElementById('flexBasisValue').textContent = props.flexBasis === 'auto' ? 'auto' : props.flexBasis + 'px';
+      document.getElementById('orderValue').textContent = props.order;
+    }
+
+    function clearItemSelection() {
+      document.querySelectorAll('.flex-item').forEach(item => {
+        item.classList.remove('selected');
+      });
+    }
+
+    function updateItemProperty(property, value) {
+      if (selectedItemIndex === null) {
+        alert('กรุณาคลิกเลือก Item ก่อน');
+        return;
+      }
+      
+      const items = document.querySelectorAll('.flex-item');
+      const item = items[selectedItemIndex];
+      
+      if (!item) return;
+      
+      // Store property
+      if (!itemProperties[selectedItemIndex]) {
+        itemProperties[selectedItemIndex] = { flexGrow: 0, flexShrink: 1, flexBasis: 'auto', order: 0 };
+      }
+      
+      switch(property) {
+        case 'flexGrow':
+          item.style.flexGrow = value;
+          itemProperties[selectedItemIndex].flexGrow = parseInt(value);
+          document.getElementById('flexGrowValue').textContent = value;
+          break;
+        case 'flexShrink':
+          item.style.flexShrink = value;
+          itemProperties[selectedItemIndex].flexShrink = parseInt(value);
+          document.getElementById('flexShrinkValue').textContent = value;
+          break;
+        case 'flexBasis':
+          if (value == 0) {
+            item.style.flexBasis = 'auto';
+            itemProperties[selectedItemIndex].flexBasis = 'auto';
+            document.getElementById('flexBasisValue').textContent = 'auto';
+          } else {
+            item.style.flexBasis = value + 'px';
+            itemProperties[selectedItemIndex].flexBasis = parseInt(value);
+            document.getElementById('flexBasisValue').textContent = value + 'px';
+          }
+          break;
+        case 'order':
+          item.style.order = value;
+          itemProperties[selectedItemIndex].order = parseInt(value);
+          document.getElementById('orderValue').textContent = value;
+          break;
+      }
+      
+      updateCode();
+    }
+
+    function copyCode() {
+      const codeElement = document.getElementById('codeDisplay');
+      const codeText = codeElement.innerText || codeElement.textContent;
+      
+      navigator.clipboard.writeText(codeText).then(() => {
+        const btn = document.querySelector('.copy-btn');
+        btn.textContent = '✅ คัดลอกแล้ว!';
+        setTimeout(() => {
+          btn.textContent = '📋 คัดลอก';
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
