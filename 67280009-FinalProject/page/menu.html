@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>รายละเอียดขนมมงคล - ขนมมงคล 9 ชนิด</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .menu-header {
+            text-align: center;
+            padding: 50px 20px;
+            background: #e6c174;
+            margin-bottom: 30px;
+            border-radius: 0 0 50px 50px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .menu-section {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            margin-bottom: 80px;
+            background: white;
+            padding: 30px;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .menu-section:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .menu-image {
+            flex: 1;
+            max-width: 450px;
+        }
+
+        .menu-image img {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.3);
+            border: 5px solid var(--primary-gold);
+        }
+
+        .menu-text {
+            flex: 1;
+        }
+
+        .menu-text h2 {
+            font-size: 2rem;
+            color: var(--navbar-bg);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-text h2::before {
+            content: "•";
+            color: var(--primary-gold);
+        }
+
+        .meaning-badge {
+            display: inline-block;
+            background: var(--secondary-cream);
+            color: #b8860b;
+            padding: 5px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            border: 1px solid var(--primary-gold);
+        }
+
+        .description {
+            color: #555;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        @media (max-width: 768px) {
+            .menu-section, .menu-section:nth-child(even) {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">✨ ขนมมงคล ๙ ชนิด</div>
+        <ul class="nav-links">
+            <li><a href="index.html">หน้าแรก</a></li>
+            <li><a href="history.html">ประวัติความเป็นมา</a></li>
+            <li><a href="menu.html" class="active">รายละเอียดขนม</a></li>
+            <li><a href="how-to-make.html">วิธีทำ</a></li>
+            <li><a href="locations.html">แหล่งซื้อ</a></li>
+        </ul>
+    </nav>
+
+    <div class="menu-header">
+        <h1>ความหมายอันวิจิตรของขนมทั้ง ๙</h1>
+        <p>เพราะชื่อนั้นสำคัญไฉน... เจาะลึกความมงคลที่ซ่อนอยู่ในขนมไทยแต่ละชนิด</p>
+    </div>
+
+    <main class="container">
+
+        <section class="menu-section">
+            <div class="menu-image">
+                <img src="img/ทองหยิบ.jpg" alt="ทองหยิบ">
+            </div>
+            <div class="menu-text">
+                <h2>ทองหยิบ (Thong Yip)</h2>
+                <div class="meaning-badge">ความมั่งคั่ง ร่ำรวย</div>
+                <p class="description">
+                    ขนมที่จีบเป็นรูปดอกไม้สีทองอร่าม สื่อถึงความมั่งคั่งและการหยิบจับสิ่งใดก็เป็นเงินเป็นทองตามชื่อ "ทองหยิบ" ในอดีตมักใช้ในงานมงคลสมรสหรืองานขึ้นบ้านใหม่ เพื่อเป็นการอวยพรให้ผู้รับมีฐานะที่รุ่งเรือง มีเงินทองไหลมาเทมาให้หยิบใช้ไม่ขาดสาย การทำทองหยิบต้องใช้ความประณีตในการจีบกลีบให้สวยงามสม่ำเสมอสะท้อนถึงความตั้งใจของผู้มอบ
+                </p>
+            </div>
+        </section>
+
+        <section class="menu-section">
+            <div class="menu-image">
+                <img src="img/ทองหยอด.png" alt="ทองหยอด">
+            </div>
+            <div class="menu-text">
+                <h2>ทองหยอด (Thong Yod)</h2>
+                <div class="meaning-badge">เงินทองไหลมาไม่สิ้นสุด</div>
+                <p class="description">
+                    มีลักษณะคล้ายหยดน้ำสีทอง เป็นสัญลักษณ์ของการมีเงินทองใช้จ่ายอย่างต่อเนื่องไม่รู้จบ เหมือนหยดน้ำที่หยดลงมาอย่างไม่ขาดสาย นิยมใช้ประกอบเครื่องคาวหวานในพิธีมงคลต่างๆ เพื่อเสริมสิริมงคลด้านโชคลาภและความมั่นคงทางเศรษฐกิจของครอบครัว รสชาติที่หวานฉ่ำยังสื่อถึงชีวิตที่หอมหวานและมีความสุข
+                </p>
+            </div>
+        </section>
+
+        <section class="menu-section">
+            <div class="menu-image">
+                <img src="img/ฝอยทอง.jpg" alt="ฝอยทอง">
+            </div>
+            <div class="menu-text">
+                <h2>ฝอยทอง (Foi Thong)</h2>
+                <div class="meaning-badge">รักยาวนาน นิรันดร์</div>
+                <p class="description">
+                    ขนมที่เป็นเส้นยาวละเอียดสีทองสวยงาม ในงานแต่งงานจะถือเป็นขนมที่ขาดไม่ได้เด็ดขาด เพราะลักษณะที่เป็นเส้นยาวห้ามตัดขาด สื่อถึงการครองรักที่ยาวนานตลอดรอดฝั่งเหมือนเส้นฝอยทอง และมีความเชื่อว่ายิ่งเส้นยาวเท่าไหร่ ชีวิตคู่และความเป็นสิริมงคลก็จะยาวนานเท่านั้น ขั้นตอนการโรยฝอยทองลงในน้ำเชื่อมต้องใช้สมาธิสูงเพื่อให้ได้เส้นที่สวยไม่ขาดสาย
+                </p>
+            </div>
+        </section>
+
+        <section class="menu-section">
+            <div class="menu-image">
+                <img src="img/เม็ดขนุน.jpg" alt="เม็ดขนุน">
+            </div>
+            <div class="menu-text">
+                <h2>เม็ดขนุน (Met Khanun)</h2>
+                <div class="meaning-badge">มีผู้อุปถัมภ์ คอยสนับสนุน</div>
+                <p class="description">
+                    หนึ่งในขนมตระกูลทองที่มีชื่ออันเป็นมงคลยิ่ง คำว่า "ขนุน" สื่อถึงการมีคนคอยเกื้อหนุน จุนเจือ มีผู้ใหญ่คอยอุปถัมภ์ค้ำชูในหน้าที่การงานและชีวิตส่วนตัว ไม่ว่าจะประกอบกิจการใดก็จะสำเร็จได้ง่ายเพราะมีแรงสนับสนุนที่ดี ตัวขนมทำจากถั่วเขียวเลาะเปลือกกวนจนเนียนนุ่ม หุ้มด้วยไข่สีเหลืองทอง มอบให้ใครเปรียบเสมือนการอวยพรให้เขามีมิตรสหายและผู้ใหญ่รักใคร่
+                </p>
+            </div>
+        </section>
+
+        <section class="menu-section">
+            <div class="menu-image">
+                <img src="img/ขนมชั้น.jpg" alt="ขนมชั้น">
+            </div>
+            <div class="menu-text">
+                <h2>ขนมชั้น (Khanom Chan)</h2>
+                <div class="meaning-badge">เลื่อนยศถาบรรดาศักดิ์</div>
+                <p class="description">
+                    ขนมมงคลที่ต้องมีอย่างน้อย 9 ชั้น เพื่อให้สอดคล้องกับเลขมงคล สื่อถึงความเจริญก้าวหน้าในหน้าที่การงาน การได้เลื่อนตำแหน่ง เลื่อนชั้นไปสู่จุดที่สูงขึ้นและมั่นคงขึ้น ความเหนียวนุ่มของชั้นขนมยังเปรียบได้กับความสมัครสมานสามัคคีในครอบครัวหรือองค์กร เป็นขนมที่สะท้อนถึงความเพียรพยายามเพราะต้องนึ่งทีละชั้นจนครบ
+                </p>
+            </div>
+        </section>
+
+        <section class="menu-section">
+            <div class="menu-image">
+                <img src="img/ทองเอก.jpg" alt="ทองเอก">
+            </div>
+            <div class="menu-text">
+                <h2>ทองเอก (Thong Ek)</h2>
+                <div class="meaning-badge">ความเป็นหนึ่ง ความเป็นเลิศ</div>
+                <p class="description">
+                    "ทองเอก" ถือเป็นสุดยอดของขนมในตระกูลทอง เนื่องจากคำว่า "เอก" หมายถึง การเป็นที่หนึ่งหรือความเป็นเลิศ ขนมชนิดนี้มีความพิเศษกว่าชนิดอื่นตรงที่มีการติด "แผ่นทองคำเปลว" ไว้ที่ด้านบนของขนม เพื่อเสริมความสง่างามและความเป็นสิริมงคลชั้นสูง มักใช้มอบให้เพื่อแสดงความยินดีในการได้รับเกียรติยศสูงสุด เช่น การสอบได้ที่หนึ่ง การชนะการประกวด หรือการได้รับเครื่องราชอิสริยาภรณ์ การทำทองเอกต้องใช้แม่พิมพ์ไม้แกะสลักอย่างประณีตเพื่อให้ได้ลวดลายที่คมชัดสวยงาม
+                </p>
+            </div>
+        </section>
+
+        <section class="menu-section">
+            <div class="menu-image">
+                <img src="img/จ่ามงกุฎ.jpg" alt="จ่ามงกุฎ">
+            </div>
+            <div class="menu-text">
+                <h2>จ่ามงกุฎ (Ja Mong Kut)</h2>
+                <div class="meaning-badge">เกียรติยศสูงสุดและความเป็นผู้นำ</div>
+                <p class="description">
+                    ขนมจ่ามงกุฎเป็นขนมที่ทำยากและใช้เวลามากที่สุดชนิดหนึ่งในบรรดาขนมไทย ด้วยลักษณะที่คล้ายมงกุฎของนักรบในสมัยโบราณ จึงสื่อถึงการมีอำนาจวาสนา ความเป็นหัวหน้าคน และความเจริญรุ่งเรืองที่มีเกียรติยศเป็นที่ประจักษ์ มักใช้ในงานฉลองยศถาบรรดาศักดิ์หรืองานทำบุญครบรอบตำแหน่งที่สำคัญ ความละเอียดอ่อนในการทำ "เครื่องประดับมงกุฎ" รอบฐานขนมสะท้อนถึงความมุมานะและความอดทน เป็นสัญลักษณ์ของการก้าวสู่จุดสูงสุดของชีวิตด้วยความสง่างาม
+                </p>
+            </div>
+        </section>
+
+        <section class="menu-section">
+            <div class="menu-image">
+                <img src="img/ถ้วยฟู.jpg" alt="ขนมถ้วยฟู">
+            </div>
+            <div class="menu-text">
+                <h2>ขนมถ้วยฟู (Khanom Thuai Fu)</h2>
+                <div class="meaning-badge">ความเจริญเฟื่องฟู รุ่งเรือง</div>
+                <p class="description">
+                    จุดเด่นของขนมถ้วยฟูคือกลิ่นหอมของดอกมะลิและแป้งที่นุ่มนวลซึ่ง "ฟู" ตัวขึ้นมาจนหน้าแตกเป็นรูปกลีบดอกไม้ สื่อถึงความเจริญรุ่งเรืองที่ขยายตัวกว้างไกล ความเฟื่องฟูของลาภยศและชื่อเสียงเหมือนชื่อขนม คนไทยนิยมนิตนำมาไหว้เจ้าหรือใช้ในงานมงคลที่ต้องการเน้นความเจริญรุ่งเรืองของธุรกิจหรือครอบครัว นอกจากความหมายที่ดีแล้ว สีสันที่พาสเทลสวยงามของขนมถ้วยฟูยังสื่อถึงความสดใสและการมองโลกในแง่ดี ทำให้เป็นขนมที่สร้างบรรยากาศแห่งความสุขในทุกพิธีการ
+                </p>
+            </div>
+        </section>
+
+        <section class="menu-section">
+            <div class="menu-image">
+                <img src="img/เส่ห์จันทร์.jpg" alt="เสน่ห์จันทร์">
+            </div>
+            <div class="menu-text">
+                <h2>เสน่ห์จันทร์ (Sane Chan)</h2>
+                <div class="meaning-badge">ความมีเสน่ห์ เป็นที่รักใคร่</div>
+                <p class="description">
+                    ขนมชนิดนี้ได้รับแรงบันดาลใจจากผลของ "ลูกจันทร์" ที่มีสีเหลืองทองและกลิ่นหอมเย้ายวนใจ คำว่า "เสน่ห์" หมายถึงความเป็นที่รักใคร่เอ็นดู การมอบเสน่ห์จันทร์จึงเป็นการอวยพรให้ผู้รับเป็นคนที่มีเสน่ห์ มีคนรักใคร่เมตตา ไม่ว่าจะไปที่ไหนก็มีแต่คนยินดีต้อนรับและคอยช่วยเหลือ มักใช้ในงานมงคลสมรสเพื่ออวยพรให้คู่บ่าวสาวเป็นที่รักของครอบครัวทั้งสองฝ่าย หรือใช้มอบให้กับผู้ใหญ่ที่เคารพรักเพื่อแสดงความกตัญญูและขอความเมตตา ความหอมละมุนของขนมชนิดนี้คือเอกลักษณ์ที่ไม่มีขนมใดเหมือน
+                </p>
+            </div>
+        </section>
+
+        </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 มหาวิทยาลัยอีสเทิร์นเอเชีย - จีรภัทร รงค์ทอง (IT ปี 2)</p>
+        <div class="social-links">
+            Facebook | Instagram | Line OpenChat
+        </div>
+    </footer>
+
+</body>
+</html>

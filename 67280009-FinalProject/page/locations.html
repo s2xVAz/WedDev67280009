@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>แหล่งซื้อขนมมงคล (กรุงเทพฯ - ปทุมธานี)</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .location-header {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: rgb(213, 147, 229);
+            border-bottom: 5px solid var(--primary-gold);
+        }
+
+        
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 40px 0;
+            background: white;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .summary-table th {
+            background-color: var(--navbar-bg);
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .summary-table td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            text-align: center;
+        }
+
+        
+        .location-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .location-item {
+            display: flex;
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+
+        .location-item:hover { transform: scale(1.02); }
+
+        .location-image {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .location-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .location-detail {
+            flex: 2;
+            padding: 30px;
+        }
+
+        .province-tag {
+            background: var(--primary-gold);
+            color: white;
+            padding: 4px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            .location-item { flex-direction: column; }
+            .location-image { height: 200px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="logo">✨ ขนมมงคล ๙ ชนิด</div>
+        <ul class="nav-links">
+            <li><a href="index.html">หน้าแรก</a></li>
+            <li><a href="history.html">ประวัติความเป็นมา</a></li>
+            <li><a href="menu.html">รายละเอียดขนม</a></li>
+            <li><a href="how-to-make.html">วิธีทำ</a></li>
+            <li><a href="locations.html" class="active">แหล่งซื้อ</a></li>
+        </ul>
+    </nav>
+
+    <header class="location-header">
+        <h1>แนะนำแหล่งซื้อขนมมงคลยอดนิยม</h1>
+        <p>คัดเน้นๆ เฉพาะในพื้นที่ กรุงเทพฯ และ ปทุมธานี สำหรับคนรักขนมไทย</p>
+    </header>
+
+    <main class="container">
+        
+        <table class="summary-table">
+            <thead>
+                <tr>
+                    <th>ที่</th>
+                    <th>ชื่อสถานที่</th>
+                    <th>พื้นที่</th>
+                    <th>ขนมแนะนำ</th>
+                    <th>วันเวลาเปิด-ปิด</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>ดิ โอลด์ สยาม พลาซ่า</td>
+                    <td>เขตพระนคร (กทม.)</td>
+                    <td>ทองเอก, จ่ามงกุฎ</td>
+                    <td>ทุกวัน 10:00 - 19:00 น.</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>ตลาด อ.ต.ก.</td>
+                    <td>เขตจตุจักร (กทม.)</td>
+                    <td>ฝอยทอง, ทองหยิบ</td>
+                    <td>ทุกวัน 06:00 - 18:00 น.</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>ตลาดอิงน้ำสามโคก</td>
+                    <td>สามโคก (ปทุมธานี)</td>
+                    <td>ขนมชั้น, เม็ดขนุน</td>
+                    <td>ส-อา 08:00 - 16:00 น.</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>ตลาดไท (โซนขนม)</td>
+                    <td>คลองหลวง (ปทุมธานี)</td>
+                    <td>ซื้อส่งครบ 9 ชนิด</td>
+                    <td>ทุกวัน 24 ชั่วโมง</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="location-container">
+
+            <div class="location-item">
+                <div class="location-image">
+                    <img src="img/top-view.jpg" alt="The Old Siam">
+                </div>
+                <div class="location-detail">
+                    <span class="province-tag">กรุงเทพมหานคร</span>
+                    <h3>ดิ โอลด์ สยาม พลาซ่า (ลานเฟื่องนคร)</h3>
+                    <p>ศูนย์รวมร้านขนมไทยเจ้าเก่าระดับตำนานที่ใหญ่ที่สุดในกรุงเทพฯ คุณจะพบกับขนมมงคลครบทั้ง 9 ชนิดที่ทำกันสดๆ กลิ่นหอมอบอวลไปทั่วห้าง เหมาะสำหรับหาซื้อไปจัดงานพิธีสำคัญหรือเป็นของขวัญผู้ใหญ่</p>
+                </div>
+            </div>
+
+            <div class="location-item">
+                <div class="location-image">
+                    <img src="img/อตก.jpg" alt="Or Tor Kor">
+                </div>
+                <div class="location-detail">
+                    <span class="province-tag">กรุงเทพมหานคร</span>
+                    <h3>ตลาด อ.ต.ก. จตุจักร</h3>
+                    <p>แหล่งรวมขนมไทยเกรดพรีเมียม วัตถุดิบที่ใช้มีความประณีตสูงมาก โดยเฉพาะทองหยิบและฝอยทองที่มีความหวานหอมพอดี รสชาติคงที่ และมีการแพ็คบรรจุภัณฑ์ที่สวยงามทันสมัย</p>
+                </div>
+            </div>
+
+            <div class="location-item">
+                <div class="location-image">
+                    <img src="img/สามโคก.jpg" alt="Sam Khok Market">
+                </div>
+                <div class="location-detail">
+                    <span class="province-tag">ปทุมธานี</span>
+                    <h3>ตลาดอิงน้ำสามโคก</h3>
+                    <p>ตลาดเก่าแก่ริมน้ำที่คงวิถีชีวิตดั้งเดิมไว้ มีขนมไทยโบราณที่หาทานยากจำหน่ายในราคาย่อมเยา ขนมมงคลที่นี่มักใช้สูตรกะทิสดหอมอบควันเทียนแบบชาวบ้านจริงๆ บรรยากาศอบอุ่นน่าเดินมากครับ</p>
+                </div>
+            </div>
+
+            <div class="location-item">
+                <div class="location-image">
+                    <img src="img/shopthai.jpg" alt="Talad Thai">
+                </div>
+                <div class="location-detail">
+                    <span class="province-tag">ปทุมธานี</span>
+                    <h3>ตลาดไท (โซนตลาดขนมและของแห้ง)</h3>
+                    <p>หากต้องการสั่งซื้อขนมมงคลจำนวนมากสำหรับงานเลี้ยงหรืองานทำบุญบ้าน ตลาดไทคือจุดหมายสำคัญ เพราะที่นี่เป็นศูนย์กลางการกระจายขนมไทยที่ใหญ่ที่สุด มีร้านค้าส่งที่ทำใหม่ทุกวันในราคาที่คุ้มค่าที่สุดในย่านปทุมธานี</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 มหาวิทยาลัยอีสเทิร์นเอเชีย - จีรภัทร รงค์ทอง (IT ปี 2)</p>
+        <div class="social-links">
+            Facebook | Instagram | Line OpenChat
+        </div>
+    </footer>
+
+</body>
+</html>
